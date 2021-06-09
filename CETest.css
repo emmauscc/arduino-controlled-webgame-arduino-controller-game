@@ -1,0 +1,12 @@
+@charset "utf-8";
+.obstacle{
+    background-color: hotpink;
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+}
+.empty{
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+}
