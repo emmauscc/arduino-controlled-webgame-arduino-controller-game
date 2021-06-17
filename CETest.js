@@ -97,9 +97,11 @@ $(document).ready(function(){
             }
         }
     }*/
-    $('.container').append('<div></div>').children().last().addClass('column').attr('id', 'row1');
-    for(var i=0;i<30;i=i+10){
-        if(i==10){
+    $('.container').append('<div></div>').children().last().addClass('row').attr('id', 'row1');
+    for(var i=0;i<30;i++){
+        if(i>=0 && i<10){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('empty');
+        }else if(i==10){
             $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('player');
         }else{
             $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('empty');
