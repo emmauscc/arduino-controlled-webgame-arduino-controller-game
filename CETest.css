@@ -4,9 +4,117 @@
     height: 100px;
     width: 100px;
     margin: 0px;
+    float: left;
 }
-.empty{
+.player{
+    background-color: rgb(78, 78, 255);
     height: 100px;
     width: 100px;
     margin: 0px;
+    float: left;
+}
+.empty{
+    height: 98px;
+    width: 98px;
+    margin: 0px;
+    float: left;
+    border: thin black solid;
+}
+.topLeft{
+    border-left: thin black solid;
+    border-top: thin black solid;
+    height: 99px;
+    width: 99px;
+    margin: 0px;
+    float: left;
+}
+.topRight{
+    border-right: thin black solid;
+    border-top: thin black solid;
+    height: 99px;
+    width: 99px;
+    margin: 0px;
+    float: left;
+}
+.bottomLeft{
+    border-left: thin black solid;
+    border-bottom: thin black solid;
+    height: 99px;
+    width: 99px;
+    margin: 0px;
+    float: left;
+}
+.bottomRight{
+    border-right: thin black solid;
+    border-bottom: thin black solid;
+    height: 99px;
+    width: 99px;
+    margin: 0px;
+    float: left;
+}
+.top{
+    border-top: thin black solid;
+    height: 99px;
+    width: 100px;
+    margin: 0px;
+    float: left;
+}
+.left{
+    border-left: thin black solid;
+    height: 100px;
+    width: 99px;
+    margin: 0px;
+    float: left;
+}
+.right{
+    border-right: thin black solid;
+    height: 100px;
+    width: 99px;
+    margin: 0px;
+    float: left;
+}
+.bottom{
+    border-bottom: thin black solid;
+    height: 99px;
+    width: 100px;
+    margin: 0px;
+    float: left;
+}
+.middle{
+    border: thin transparent solid;
+    height: 98px;
+    width: 98px;
+    margin: 0px;
+    float: left;
+}
+.row{
+    height: 300px;
+    width: 1000px;
+    /*border: thin black solid;*/
+}
+.column{
+    height: 1000px;
+    width: 100px;
+}
+.character{
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+}
+.holeRight{
+    height: 98px;
+    width: 98px;
+    margin: 0px;
+    float: left;
+    border: thin white solid;
+    border-right: thin black solid;
+}
+.holeLeft{
+    height: 98px;
+    width: 98px;
+    margin: 0px;
+    float: left;
+    border: thin white solid;
+    border-left: thin black solid;
 }
