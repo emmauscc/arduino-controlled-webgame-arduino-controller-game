@@ -97,14 +97,35 @@ $(document).ready(function(){
             }
         }
     }*/
-    $('.container').append('<div></div>').children().last().addClass('row').attr('id', 'row1');
+    $('.container').append('<div></div>').children().last().addClass('row').attr('id', 'row1').attr("rowNum", "1");
     for(var i=0;i<30;i++){
         if(i>=0 && i<10){
-            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('empty');
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('empty').addClass('grid');
         }else if(i==10){
-            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('player');
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('player').addClass('grid');
         }else{
-            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('empty');
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', '1').addClass('empty').addClass('grid');
+        }
+    }
+    /*for(var i=0;i<30;i++){
+        if(i==0){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('holeLeft').addClass('grid');
+        }else if(i>0 && i<9){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('top').addClass('grid');
+        }else if(i==9){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('topRight').addClass('grid');
+        }else if(i==10){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('player').addClass('grid');
+        }else if(i>10 && i<19){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('middle').addClass('grid');
+        }else if(i==19){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('holeRight').addClass('grid');
+        }else if(i==20){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('bottomLeft').addClass('grid');
+        }else if(i>20 && i<29){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('bottom').addClass('grid');
+        }else if(i==29){
+            $('#row1').append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', 1).addClass('holeRight').addClass('grid');
         }
     }
 
@@ -153,57 +174,63 @@ $(document).ready(function(){
 });
 
 function keyIn(e){
-
+    
     console.log("key in");
     x=parseInt($('.player').attr('gridNum'));
+    y=parseInt($('.player').attr('rowNum'));
     console.log(x);
+    console.log(y);
     if(e.key=="a"){
         if(x==0){
 
+        }else if(x==10){
+
+        }else if(x==20){
+
         }else{
-            $('.player').removeClass().addClass('empty');
+            $('.player').removeClass().addClass('empty').addClass('grid');
             x=x-1;
             console.log(x);
-            $('.empty[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
         }
     }else if(e.key=="d"){
         if(x==9){
 
         }else{
-            $('.player').removeClass().addClass('empty');
+            $('.player').removeClass().addClass('empty').addClass('grid');
             x=x+1;
             console.log(x);
-            $('.empty[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
         }
     }else if(e.key=="w"){
-        if(x==0){
+        if(x>=0 && x<=9){
 
         }else{
-            $('.player').removeClass().addClass('empty');
+            $('.player').removeClass().addClass('empty').addClass('grid');
             x=x-10;
             console.log(x)
-            $('.empty[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
             setTimeout(function(){
-                $('.player').removeClass().addClass('empty');
+                $('.player').removeClass().addClass('empty').addClass('grid');
                 x=x+10;
                 console.log(x)
-                $('.empty[gridNum='+x+']').removeClass().addClass('player');
-            }, 2000);
+                $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            }, 1000);
         }
     }else if(e.key=="s"){
-        if(x==20){
+        if(x>=20 && x<=29){
 
         }else{
-            $('.player').removeClass().addClass('empty');
+            $('.player').removeClass().addClass('empty').addClass('grid');
             x=x+10;
             console.log(x)
-            $('.empty[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
             setTimeout(function(){
-                $('.player').removeClass().addClass('empty');
+                $('.player').removeClass().addClass('empty').addClass('grid');
                 x=x-10;
                 console.log(x)
-                $('.empty[gridNum='+x+']').removeClass().addClass('player');
-            }, 2000);
+                $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            }, 1000);
         }
     }
 }
