@@ -26,7 +26,7 @@ void loop() {
     Serial.println('w');
     delay(10);
   }else if(xValue>=200 && xValue<=900 && yValue == 0){
-    bt.print('a');
+    bt.print('a   ');
     Serial.println('a');
     delay(10);
   }else if(xValue == 0 && yValue>=200 && yValue<=900){
@@ -39,6 +39,51 @@ void loop() {
     delay(10);
   }else{
   }
+
+  //READING FROM WEB
+  if (bt.available()) {
+
+    while (bt.available()) {
+
+      int incoming = bt.read();
+
+      //sample -> if message is A, do something
+
+      if(incoming ==49){ //acsii code for "1"
+
+        Serial.println(incoming); //Write to Serial Monitor
+
+        delay(100);
+
+        bt.print("message received"); //Write to Browser
+
+        //DO SOMETHING
+        Serial.println(incoming);
+             
+      }else if(incoming ==50){ //acsii code for "2"
+        Serial.println(incoming); //Write to Serial Monitor
+
+        delay(100);
+
+        bt.print("message received"); //Write to Browser
+
+        //DO SOMETHING
+        Serial.println(incoming);
+      }else if(incoming ==51){ //acsii code for "3"
+        Serial.println(incoming); //Write to Serial Monitor
+
+        delay(100);
+
+        bt.print("message received"); //Write to Browser
+
+        //DO SOMETHING
+        Serial.println(incoming);
+      }
+
+      //End of Sample
+      
+    }  
+  }
   
-   delay(2000);
+  delay(2000);
 }

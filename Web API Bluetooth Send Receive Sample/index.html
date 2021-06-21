@@ -23,8 +23,11 @@
     <button onclick="disconnectBLE()">Click to disconnect</button>
 
     <br>
-    <button onclick="sendToBLE('A')">A</button>
-    
-    <button onclick="sendToBLE('B')">B</button>
+
+    <select name="difficulty" id="difficulty">
+        <option value="easy" onclick="sendToBLE('1')">Easy</option>
+        <option value="normal" onclick="sendToBLE('2')">Normal</option>
+        <option value="hard" onclick="sendToBLE('3')">Hard</option>
+    </select>
 </body>
 </html>
