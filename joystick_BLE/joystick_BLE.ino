@@ -75,6 +75,18 @@ void loop() {
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
+      }else if(incoming ==104){ //ascii code for "h"
+        Serial.println('h'); //Write to Serial Monitor
+
+        delay(100);
+
+        bt.print("message received"); //Write to Browser
+      }else if(incoming ==110){
+        Serial.println('n'); //Write to Serial Monitor
+
+        delay(100);
+
+        bt.print("message received"); //Write to Browser
       }
 
       //End of Sample
