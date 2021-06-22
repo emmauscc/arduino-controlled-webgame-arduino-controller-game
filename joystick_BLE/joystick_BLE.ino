@@ -51,33 +51,30 @@ void loop() {
 
       if(incoming ==49){ //acsii code for "1"
 
-        Serial.println(incoming); //Write to Serial Monitor
+        Serial.println(1); //Write to Serial Monitor
 
         delay(100);
 
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
-        Serial.println(incoming);
              
       }else if(incoming ==50){ //acsii code for "2"
-        Serial.println(incoming); //Write to Serial Monitor
+        Serial.println(2); //Write to Serial Monitor
 
         delay(100);
 
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
-        Serial.println(incoming);
       }else if(incoming ==51){ //acsii code for "3"
-        Serial.println(incoming); //Write to Serial Monitor
+        Serial.println(3); //Write to Serial Monitor
 
         delay(100);
 
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
-        Serial.println(incoming);
       }
 
       //End of Sample
@@ -85,5 +82,5 @@ void loop() {
     }  
   }
   
-  delay(2000);
+  delay(10);
 }
