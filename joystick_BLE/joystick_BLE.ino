@@ -9,6 +9,7 @@ const int BLUETOOTH_RX = 7;
 
 SoftwareSerial bt(BLUETOOTH_TX, BLUETOOTH_RX);
 int lives=3;
+String joystickStatus="";
 
 void setup() {
   Serial.begin(9600);
@@ -22,6 +23,7 @@ void loop() {
   int xValue = analogRead(joyX);
   int yValue = analogRead(joyY);
 
+  if (joystickStatus == "enabled"){
     if(xValue == 1023 && yValue>=200 && yValue<=900){
       bt.print('w');
       Serial.println('w');
@@ -38,8 +40,8 @@ void loop() {
       bt.print('d');
       Serial.println('d');
       delay(10);
-    }else{}
-
+    }
+  }
   //READING FROM WEB
   if (bt.available()) {
 
@@ -58,7 +60,7 @@ void loop() {
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
-             
+        joystickStatus = "enabled";
       }else if(incoming ==50){ //acsii code for "2"
         Serial.println("Difficulty: normal"); //Write to Serial Monitor
 
@@ -67,6 +69,7 @@ void loop() {
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
+        joystickStatus = "enabled";
       }else if(incoming ==51){ //acsii code for "3"
         Serial.println("Difficulty: hard"); //Write to Serial Monitor
 
@@ -75,11 +78,12 @@ void loop() {
         bt.print("message received"); //Write to Browser
 
         //DO SOMETHING
+        joystickStatus = "enabled";
       }else if(incoming ==104){ //ascii code for "h"
         Serial.println('h'); //Write to Serial Monitor
         if (lives!= 0){
           lives=lives-1;
-        }else{}
+        }
         Serial.println("lives: "+lives);
 
         delay(100);
@@ -96,7 +100,16 @@ void loop() {
 
       //End of Sample
       
-    }  
+    }else if(incoming ==102){ // ascii code for "f"
+        Serial.println('f'); //Write to Serial Monitor
+        Serial.println("Game Over");
+
+        delay(100);
+
+        bt.print("message received"); //Write to Browser
+
+        joystickStatus = "disabled";
+    }   
   }
   
   delay(10);
