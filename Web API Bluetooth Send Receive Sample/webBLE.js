@@ -124,10 +124,6 @@ function detectDifficulty(){
   }
 }
 
-function hit(){
-  
-}
-
 
   
 

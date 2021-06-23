@@ -8,6 +8,7 @@ const int BLUETOOTH_TX = 8;
 const int BLUETOOTH_RX = 7;
 
 SoftwareSerial bt(BLUETOOTH_TX, BLUETOOTH_RX);
+int lives=3;
 
 void setup() {
   Serial.begin(9600);
@@ -21,24 +22,23 @@ void loop() {
   int xValue = analogRead(joyX);
   int yValue = analogRead(joyY);
 
-  if(xValue == 1023 && yValue>=200 && yValue<=900){
-    bt.print('w');
-    Serial.println('w');
+    if(xValue == 1023 && yValue>=200 && yValue<=900){
+      bt.print('w');
+      Serial.println('w');
     delay(10);
-  }else if(xValue>=200 && xValue<=900 && yValue == 0){
-    bt.print('a   ');
-    Serial.println('a');
-    delay(10);
-  }else if(xValue == 0 && yValue>=200 && yValue<=900){
-    bt.print('s');
-    Serial.println('s');
-    delay(10);
-  }else if(xValue>=200 && xValue<=900 && yValue == 1023){
-    bt.print('d');
-    Serial.println('d');
-    delay(10);
-  }else{
-  }
+    }else if(xValue>=200 && xValue<=900 && yValue == 0){
+      bt.print('a   ');
+      Serial.println('a');
+      delay(10);
+    }else if(xValue == 0 && yValue>=200 && yValue<=900){
+      bt.print('s');
+      Serial.println('s');
+      delay(10);
+    }else if(xValue>=200 && xValue<=900 && yValue == 1023){
+      bt.print('d');
+      Serial.println('d');
+      delay(10);
+    }else{}
 
   //READING FROM WEB
   if (bt.available()) {
@@ -51,7 +51,7 @@ void loop() {
 
       if(incoming ==49){ //acsii code for "1"
 
-        Serial.println(1); //Write to Serial Monitor
+        Serial.println("Difficulty: easy"); //Write to Serial Monitor
 
         delay(100);
 
@@ -60,7 +60,7 @@ void loop() {
         //DO SOMETHING
              
       }else if(incoming ==50){ //acsii code for "2"
-        Serial.println(2); //Write to Serial Monitor
+        Serial.println("Difficulty: normal"); //Write to Serial Monitor
 
         delay(100);
 
@@ -68,7 +68,7 @@ void loop() {
 
         //DO SOMETHING
       }else if(incoming ==51){ //acsii code for "3"
-        Serial.println(3); //Write to Serial Monitor
+        Serial.println("Difficulty: hard"); //Write to Serial Monitor
 
         delay(100);
 
@@ -77,17 +77,22 @@ void loop() {
         //DO SOMETHING
       }else if(incoming ==104){ //ascii code for "h"
         Serial.println('h'); //Write to Serial Monitor
+        if (lives!= 0){
+          lives=lives-1;
+        }else{}
+        Serial.println("lives: "+lives);
 
         delay(100);
 
         bt.print("message received"); //Write to Browser
-      }else if(incoming ==110){
+      }else if(incoming ==110){ //ascii code for "n"
         Serial.println('n'); //Write to Serial Monitor
+        lives=lives+1;
+        Serial.println("lives: "+lives);
 
         delay(100);
 
         bt.print("message received"); //Write to Browser
-      }
 
       //End of Sample
       
