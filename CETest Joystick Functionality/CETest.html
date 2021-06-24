@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Long Drop Cave</title>
+    <link href="CETest.css" rel="stylesheet" type="text/css" >
+    <script src="jquery-3.1.1.js"></script>
+    <script src="CETest.js"></script>    
+    
+</head>
+<body onkeypress="keyIn(event)">
+    <div>BLE Service</div>
+    
+    <input id="serviceAddress" type="text" style="width:300px" value="0000ffe0-0000-1000-8000-00805f9b34fb">
+    <br>
+
+    <div>Characteristic</div>
+
+    <input id="characteristicAddress" type="text" style="width:300px" value="0000ffe1-0000-1000-8000-00805f9b34fb" >
+    <br>
+
+    <button onclick="connectBLE()">Click to connect</button>
+    <button onclick="disconnectBLE()">Click to disconnect</button>
+</body>

@@ -114,6 +114,16 @@ function sendToBLE(toSend){
   }
 }
 
+function detectDifficulty(){
+  if($('#difficulty').val()=="easy"){
+    sendToBLE('1');
+  }else if($('#difficulty').val()=="normal"){
+    sendToBLE('2');
+  }else if($('#difficulty').val()=="hard"){
+    sendToBLE('3');
+  }
+}
+
 
   
 

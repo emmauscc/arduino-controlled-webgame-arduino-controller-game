@@ -8,8 +8,8 @@ const int BLUETOOTH_TX = 8;
 const int BLUETOOTH_RX = 7;
 
 SoftwareSerial bt(BLUETOOTH_TX, BLUETOOTH_RX);
-int lives=3;
-String joystickStatus="";
+//int lives=3;
+//String joystickStatus="";
 
 void setup() {
   Serial.begin(9600);
@@ -23,7 +23,7 @@ void loop() {
   int xValue = analogRead(joyX);
   int yValue = analogRead(joyY);
 
-  if (joystickStatus == "enabled"){
+  //if (joystickStatus == "enabled"){
     if(xValue == 1023 && yValue>=200 && yValue<=900){
       bt.print('w');
       Serial.println('w');
@@ -41,9 +41,9 @@ void loop() {
       Serial.println('d');
       delay(10);
     }
-  }
+  //}
   //READING FROM WEB
-  if (bt.available()) {
+  /*if (bt.available()) {
 
     while (bt.available()) {
 
@@ -120,5 +120,5 @@ void loop() {
   }
   
   delay(10);
-}
+}*/
 }

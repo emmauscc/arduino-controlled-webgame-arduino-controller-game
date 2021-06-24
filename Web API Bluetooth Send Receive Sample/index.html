@@ -7,6 +7,7 @@
 </head>
 
 <script src="webBLE.js"></script>
+<script src="jquery-3.1.1.js"></script>
 <body>
 
     <div>BLE Service</div>
@@ -23,8 +24,18 @@
     <button onclick="disconnectBLE()">Click to disconnect</button>
 
     <br>
-    <button onclick="sendToBLE('A')">A</button>
-    
-    <button onclick="sendToBLE('B')">B</button>
+
+    <select name="difficulty" id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="normal">Normal</option>
+        <option value="hard">Hard</option>
+    </select>
+
+    <button id="startButton" onclick="detectDifficulty()">Start</button>
+
+    <button id="hit" onclick="sendToBLE('h')">Hit</button>
+    <button id="newLife" onclick="sendToBLE('n')">New Life</button>
+
+    <button id="gameFinish" onclick="sendToBLE('f')">Finish Game</button>
 </body>
 </html>
