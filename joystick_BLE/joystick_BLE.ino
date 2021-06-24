@@ -80,26 +80,33 @@ void loop() {
         //DO SOMETHING
         joystickStatus = "enabled";
       }else if(incoming ==104){ //ascii code for "h"
-        Serial.println('h'); //Write to Serial Monitor
-        if (lives!= 0){
-          lives=lives-1;
+        if(joystickStatus == "enabled"){
+          //Serial.println('h'); //Write to Serial Monitor
+          if (lives!= 0){
+            lives=lives-1;
+          }
+          Serial.println();
+          Serial.print("lives: ");
+          Serial.print(lives);
+  
+          delay(100);
+  
+          bt.print("message received"); //Write to Browser
         }
-        Serial.println("lives: "+lives);
-
-        delay(100);
-
-        bt.print("message received"); //Write to Browser
       }else if(incoming ==110){ //ascii code for "n"
-        Serial.println('n'); //Write to Serial Monitor
-        lives=lives+1;
-        Serial.println("lives: "+lives);
-
-        delay(100);
-
-        bt.print("message received"); //Write to Browser
+        if(joystickStatus == "enabled"){
+          //Serial.println('n'); //Write to Serial Monitor
+          lives=lives+1;
+          Serial.println();
+          Serial.print("lives: ");
+          Serial.println(lives);
+  
+          delay(100);
+  
+          bt.print("message received"); //Write to Browser
+        }
 
       //End of Sample
-      
     }else if(incoming ==102){ // ascii code for "f"
         Serial.println('f'); //Write to Serial Monitor
         Serial.println("Game Over");
@@ -113,4 +120,5 @@ void loop() {
   }
   
   delay(10);
+}
 }
