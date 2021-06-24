@@ -65,12 +65,12 @@
     /*border-bottom: ;*/
 }
 .hole{
-    height: 97px;
+    height: 96px;
     float: left;
     border-bottom: 3px brown dotted;
 }
 .upperHole{
-    height: 97px;
+    height: 96px;
     float: left;
     border-top: 3px brown dotted;
 }

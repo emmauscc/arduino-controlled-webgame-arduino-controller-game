@@ -94,7 +94,7 @@ $(document).ready(function(){
                 }else if(i>2 && i<10){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
                 }else if(i==10){
-                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('player');
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('player');
                 }else if(i>10 && i<12){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
                 }else if(i==12){
@@ -157,31 +157,31 @@ var y;
 var lifeNum=0;
 var numOfCoinsFound=0;
 function statusCheck(){
-    setTimeout(function(){
-        /*if($('.player').attr('status')=="hole"){
-            y=y+1
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
-        }else */if($('.player').attr('status')=="obstacle"){
-            $('.player').removeClass().addClass('obstacle').addClass('grid');
+    /*if($('.player').attr('status')=="hole"){
+        y=y+1
+        $('.player').removeClass().addClass('gridStyle').addClass('grid');
+        $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+    }else */if($('.player').attr('status')=="obstacle"){
+        setTimeout(function(){
+            $('.player').removeClass('player').addClass('obstacle');
             x=x-1;
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
-        }else if($('.player').attr('status')=="heart"){
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
-            lifeNum=lifeNum-1
-            $('.dead[life='+lifeNum+']').removeClass().addClass('alive');
-            $('.player').attr('status', 'empty');
-        }else if($('.player').attr('status')=="coin"){
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
-            $('.player').attr('status', 'empty');
-            $('.tBF[coinsFound='+numOfCoinsFound+']').removeClass().addClass('found');
-            numOfCoinsFound=numOfCoinsFound+1;
-        }else{
+        }, 850);
+    }else if($('.player').attr('status')=="heart"){
+        $('#row'+y).children('.grid[gridNum='+x+']').removeClass('heart').addClass('player');
+        lifeNum=lifeNum-1
+        $('.dead[life='+lifeNum+']').removeClass().addClass('alive');
+        $('.player').attr('status', 'empty');
+    }else if($('.player').attr('status')=="coin"){
+        $('#row'+y).children('.grid[gridNum='+x+']').removeClass('coin').addClass('player');
+        $('.player').attr('status', 'empty');
+        $('.tBF[coinsFound='+numOfCoinsFound+']').removeClass().addClass('found');
+        numOfCoinsFound=numOfCoinsFound+1;
+    }else{
 
-        }
-    }, 500);
+    }
 }
 function keyIn(e){
     x=parseInt($('.player').attr('gridNum'));
@@ -194,9 +194,9 @@ function keyIn(e){
         }else if(x==20){
 
         }else{
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
+            $('.player').removeClass('player').addClass('gridStyle');
             x=x-1;
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }
     }else if(e.key=="d"){
@@ -207,9 +207,9 @@ function keyIn(e){
         }else if(x==29){
 
         }else{
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
+            $('.player').removeClass('player').addClass('gridStyle');
             x=x+1;
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }
     }else if(e.key=="w"){
@@ -226,14 +226,14 @@ function keyIn(e){
         }else if(x>=0 && x<=9){
 
         }else if(x>=20 && x<=29){
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
+            $('.player').removeClass('player').addClass('gridStyle');
                 x=x-10;
-                $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+                $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
                 statusCheck();
         }else{
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
+            $('.player').removeClass('player').addClass('gridStyle');
             x=x-10;               
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             setTimeout(function(){
                 $('.player').removeClass().addClass('gridStyle').addClass('grid');
                 x=x+10;                  
@@ -247,20 +247,20 @@ function keyIn(e){
 
             }else{
                 y=y+1
-                $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+                $('.player').removeClass('player').addClass('gridStyle');
+                $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             }
         }else if($('.player').attr('status')=="jumpUp"){
 
         }else if(x<20){
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
+            $('.player').removeClass('player').addClass('gridStyle');
             x=x+10;
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }else if(x>=20 && x<=29){
-            $('.player').removeClass().addClass('gridStyle').addClass('grid');
+            $('.player').removeClass('player').addClass('gridStyle');
             x=x-10;
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
+            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }
     }
