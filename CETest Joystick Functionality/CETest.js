@@ -251,8 +251,8 @@ function statusCheck(){
 function keyIn(e){
     x=parseInt($('.player').attr('gridNum'));
     y=parseInt($('.player').attr('rowNum'));
-
-        if(e.key=="a"){
+    setTimeout (function(){
+        if(e=="a"){
             if(x==0){
 
             }else if(x==10){
@@ -265,7 +265,7 @@ function keyIn(e){
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
                 statusCheck();
             }
-        }else if(e.key=="d"){
+        }else if(e=="d"){
             if(x==9){
 
             }else if(x==19){
@@ -278,7 +278,7 @@ function keyIn(e){
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
                 statusCheck();
             }
-        }else if(e.key=="w"){
+        }else if(e=="w"){
             if(x>=0 && x<=9){
 
             }else if(x>=20 && x<=29){
@@ -297,7 +297,7 @@ function keyIn(e){
                 }, 1000);
                 statusCheck();
             }
-        }else if(e.key=="s"){
+        }else if(e=="s"){
             if(x<20){
                 $('.player').removeClass().addClass('gridStyle').addClass('grid');
                 x=x+10;
@@ -310,7 +310,8 @@ function keyIn(e){
                 statusCheck();
             }
         }
-    }
+    }, 500);
+}
 
     var bluetoothDevice;
     var customCharacteristic;
