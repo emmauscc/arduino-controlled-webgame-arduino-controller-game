@@ -27,19 +27,19 @@ void loop() {
     if(xValue == 1023 && yValue>=200 && yValue<=900){
       bt.print('w');
       Serial.println('w');
-    delay(10);
+      delay(250);
     }else if(xValue>=200 && xValue<=900 && yValue == 0){
       bt.print('a');
       Serial.println('a');
-      delay(10);
+      delay(250);
     }else if(xValue == 0 && yValue>=200 && yValue<=900){
       bt.print('s');
       Serial.println('s');
-      delay(10);
+      delay(250);
     }else if(xValue>=200 && xValue<=900 && yValue == 1023){
       bt.print('d');
       Serial.println('d');
-      delay(10);
+      delay(250);
     }
   //}
   //READING FROM WEB

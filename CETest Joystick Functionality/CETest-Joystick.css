@@ -18,7 +18,7 @@
     width: 98px;
     margin: 0px;
     float: left;
-    border: thin black solid;
+    border: thin white solid;
 }
 .gridStyle{
     height: 98px;
@@ -64,9 +64,15 @@
     border: thin black solid;
     /*border-bottom: ;*/
 }
-.column{
-    height: 1000px;
-    width: 100px;
+.hole{
+    height: 96px;
+    float: left;
+    border-bottom: 3px brown dotted;
+}
+.upperHole{
+    height: 96px;
+    float: left;
+    border-top: 3px brown dotted;
 }
 .character{
     background-color: blue;
@@ -94,7 +100,36 @@
     float: left;
     border: thin black solid;
 }
-/*.container{
+.heart{
+    height: 100px;
+    width: 100px;
+    float: left;
+    background-color: red;
+}
+.coin{
+    height: 100px;
+    width: 100px;
+    float: left;
+    background-color: goldenrod;
+}
+.coins{
     height: auto;
-    width: 1100px;
-}*/
+    width: auto;
+    border: thin black solid;
+    float: left;
+    margin-left: 10px;
+}
+.tBF{
+    height: 20px;
+    width: 20px;
+    background-color: lightgray;
+    float: left;
+    border: thin black solid;
+}
+.found{
+    height: 20px;
+    width: 20px;
+    background-color: greenyellow;
+    border: thin black solid;
+    float: left;
+}
