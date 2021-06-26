@@ -6,6 +6,7 @@ function messageReceived(received){
     
     //Do Something with incoming messages//
     console.log(received);
+    
 }
 
 //call "sendToBLE(inputToSend)" to send message to Arduino via BLE//
