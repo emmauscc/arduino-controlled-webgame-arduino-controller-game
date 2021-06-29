@@ -6,6 +6,7 @@ function messageReceived(received){
     
     //Do Something with incoming messages//
     console.log(received);
+    
 }
 
 //call "sendToBLE(inputToSend)" to send message to Arduino via BLE//
@@ -111,6 +112,16 @@ function sendToBLE(toSend){
       bufView[i] = str.charCodeAt(i);
     }
     return buf;
+  }
+}
+
+function detectDifficulty(){
+  if($('#difficulty').val()=="easy"){
+    sendToBLE('1');
+  }else if($('#difficulty').val()=="normal"){
+    sendToBLE('2');
+  }else if($('#difficulty').val()=="hard"){
+    sendToBLE('3');
   }
 }
 
