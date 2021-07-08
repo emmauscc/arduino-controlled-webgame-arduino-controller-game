@@ -70,7 +70,7 @@ void loop() {
           bt.print(seconds);
           bt.println();
           
-          Serial.print("0");
+          Serial.println("0");
           Serial.print(minutes); 
           Serial.print(":0");
           Serial.print(seconds);
