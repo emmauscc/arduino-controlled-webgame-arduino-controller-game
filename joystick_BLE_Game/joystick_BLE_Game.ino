@@ -13,7 +13,7 @@ int over;
 int countdownStatus;
 
 SoftwareSerial bt(BLUETOOTH_TX, BLUETOOTH_RX);
-int lives=3;
+int lives=4;
 String joystickStatus="";
 
 void setup() {
@@ -25,6 +25,11 @@ void setup() {
   minutes=2;
   over=0;
   countdownStatus=0;
+
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
 
 }
 
@@ -140,13 +145,8 @@ void loop() {
           //DO SOMETHING
           countdownStatus = 1;
       }
-    if(lives==0){
-       over=1;
-       countdownStatus=0;
-       bt.println("Game Over");
-       Serial.println("Game Over");
-    }      
-  if(countdownStatus==1){
+    
+  /*if(countdownStatus==1){
     if(over==0){
       if(seconds!= 0 && minutes!= 0 || seconds==0 && minutes!=0 || seconds!= 0 && minutes==0){
         if(seconds==0 && minutes!=0){
@@ -200,8 +200,39 @@ void loop() {
       }
       delay (1000); 
     }
+  }*/
+  if(lives==0){
+      digitalWrite(9, LOW);
+      digitalWrite(10, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(12, LOW);
+      //over=1;
+      //countdownStatus=0;
+      bt.println("Game Over");
+      Serial.println("Game Over");
+    }else if (lives==1){
+      digitalWrite(9, HIGH);
+      digitalWrite(10, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(12, LOW);
+    }else if (lives==2){
+      digitalWrite(9, HIGH);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(12, LOW);
+    }else if (lives==3){
+      digitalWrite(9, HIGH);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(12, LOW);
+    }else if (lives==4){
+      digitalWrite(9, HIGH);
+      digitalWrite(10, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(12, HIGH);
+    }
+    delay(1000);
   }
     
   }
- }
 }
