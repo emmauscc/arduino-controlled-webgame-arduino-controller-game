@@ -5,7 +5,7 @@ var myCharacteristic;
 function messageReceived(received){
     
     //Do Something with incoming messages//
-    console.log(received);
+    //console.log(received);
     
 }
 
