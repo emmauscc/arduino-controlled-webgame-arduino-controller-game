@@ -64,86 +64,84 @@ void loop() {
       int incoming = bt.read();
 
       //sample -> if message is A, do something
-
-      if(incoming ==49){ //acsii code for "1"
-
-        Serial.println("Difficulty: easy"); //Write to Serial Monitor
-
-        delay(100);
-
-        bt.print("message received"); //Write to Browser
-
-        //DO SOMETHING
-        joystickStatus = "enabled";
-      }else if(incoming ==50){ //acsii code for "2"
-        Serial.println("Difficulty: normal"); //Write to Serial Monitor
-
-        delay(100);
-
-        bt.print("message received"); //Write to Browser
-
-        //DO SOMETHING
-        joystickStatus = "enabled";
-      }else if(incoming ==51){ //acsii code for "3"
-        Serial.println("Difficulty: hard"); //Write to Serial Monitor
-
-        delay(100);
-
-        bt.print("message received"); //Write to Browser
-
-        //DO SOMETHING
-        joystickStatus = "enabled";
-      }else if(incoming ==104){ //ascii code for "h"
-        if(joystickStatus == "enabled"){
-          //Serial.println('h'); //Write to Serial Monitor
-          if (lives!= 0){
-            lives=lives-1;
-          }
-          //Serial.println();
-          Serial.print("lives: ");
-          Serial.print(lives);
-          Serial.println();
-  
-          delay(100);
-  
-          bt.print("message received"); //Write to Browser
-        }
-      }else if(incoming ==110){ //ascii code for "n"
-        if(joystickStatus == "enabled"){
-          //Serial.println('n'); //Write to Serial Monitor
-          lives=lives+1;
-          //Serial.println();
-          Serial.print("lives: ");
-          Serial.print(lives);
-          Serial.println();
-  
-          delay(100);
-  
-          bt.print("message received"); //Write to Browser
-        }
-
-      //End of Sample
-      }else if(incoming ==102){ // ascii code for "f"
-        if(joystickStatus == "enabled"){
-          //Serial.println('f'); //Write to Serial Monitor
-          Serial.println("Game Over");
-  
-          delay(100);
-  
-          bt.print("message received"); //Write to Browser
-  
-          joystickStatus = "disabled";
-        }
-      }else if(incoming ==99){ //acsii code for "c"
+      if(over==0){
+          if(incoming ==49){ //acsii code for "1"
+    
+            Serial.println("Difficulty: easy"); //Write to Serial Monitor
+    
+            bt.print("message received"); //Write to Browser
+    
+            //DO SOMETHING
+            joystickStatus = "enabled";
+            lives=4;
+          }else if(incoming ==50){ //acsii code for "2"
+            Serial.println("Difficulty: normal"); //Write to Serial Monitor
+    
+            bt.print("message received"); //Write to Browser
+    
+            //DO SOMETHING
+            joystickStatus = "enabled";
+            lives=4;
+          }else if(incoming ==51){ //acsii code for "3"
+            Serial.println("Difficulty: hard"); //Write to Serial Monitor
+    
+            bt.print("message received"); //Write to Browser
+    
+            //DO SOMETHING
+            joystickStatus = "enabled";
+            lives=4;
+          }else if(incoming ==104){ //ascii code for "h"
+            if(joystickStatus == "enabled"){
+              //Serial.println('h'); //Write to Serial Monitor
+              if (lives!= 0){
+                lives=lives-1;
+              }
+              //Serial.println();
+              Serial.print("lives: ");
+              Serial.print(lives);
+              Serial.println();
       
-          Serial.println("Start Countdown"); //Write to Serial Monitor
-  
-          delay(100);
-  
-          bt.print("Start Countdown"); //Write to Browser
-  
-          //DO SOMETHING
-          countdownStatus = 1;
+      
+              bt.print("message received"); //Write to Browser
+            }
+          }else if(incoming ==110){ //ascii code for "n"
+            if(joystickStatus == "enabled"){
+              //Serial.println('n'); //Write to Serial Monitor
+              if (lives!=4){
+                lives=lives+1;
+              }
+              //Serial.println();
+              Serial.print("lives: ");
+              Serial.print(lives);
+              Serial.println();
+      
+              bt.print("message received"); //Write to Browser
+            }
+    
+          //End of Sample
+          }else if(incoming ==102){ // ascii code for "f"
+            if(joystickStatus == "enabled"){
+              //Serial.println('f'); //Write to Serial Monitor
+              Serial.println("Game Over");
+      
+              delay(100);
+      
+              bt.print("message received"); //Write to Browser
+      
+              joystickStatus = "disabled";
+              over=1;
+            }
+          }else if(incoming ==99){ //acsii code for "c"
+          
+              Serial.println("Start Countdown"); //Write to Serial Monitor
+      
+              delay(100);
+      
+              bt.print("Start Countdown"); //Write to Browser
+      
+              //DO SOMETHING
+              countdownStatus = 1;
+          } 
       }
     
   /*if(countdownStatus==1){
@@ -201,37 +199,42 @@ void loop() {
       delay (1000); 
     }
   }*/
-  if(lives==0){
-      digitalWrite(9, LOW);
-      digitalWrite(10, LOW);
-      digitalWrite(11, LOW);
-      digitalWrite(12, LOW);
-      //over=1;
-      //countdownStatus=0;
-      bt.println("Game Over");
-      Serial.println("Game Over");
-    }else if (lives==1){
-      digitalWrite(9, HIGH);
-      digitalWrite(10, LOW);
-      digitalWrite(11, LOW);
-      digitalWrite(12, LOW);
-    }else if (lives==2){
-      digitalWrite(9, HIGH);
-      digitalWrite(10, HIGH);
-      digitalWrite(11, LOW);
-      digitalWrite(12, LOW);
-    }else if (lives==3){
-      digitalWrite(9, HIGH);
-      digitalWrite(10, HIGH);
-      digitalWrite(11, HIGH);
-      digitalWrite(12, LOW);
-    }else if (lives==4){
-      digitalWrite(9, HIGH);
-      digitalWrite(10, HIGH);
-      digitalWrite(11, HIGH);
-      digitalWrite(12, HIGH);
+    if(over==0){
+      if(lives==0){
+        digitalWrite(9, LOW);
+        digitalWrite(10, LOW);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+        //countdownStatus=0;
+          bt.println("");
+          bt.print("Game Over");
+          Serial.println("Game Over"); 
+          over=1;
+          joystickStatus="disabled";
+      }else if (lives==1){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, LOW);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+      }else if (lives==2){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, HIGH);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+      }else if (lives==3){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, HIGH);
+        digitalWrite(11, HIGH);
+        digitalWrite(12, LOW);
+      }else if (lives==4){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, HIGH);
+        digitalWrite(11, HIGH);
+        digitalWrite(12, HIGH);
+      }
+      delay(100); 
     }
-    delay(1000);
+  
   }
     
   }
