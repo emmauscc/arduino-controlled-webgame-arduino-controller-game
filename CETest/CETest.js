@@ -1,4 +1,5 @@
 var maxRowNum;
+var previousX;
 $(document).ready(function(){
     /*for(var i=1;i<4;i++){
         $('body').append('<div></div>').children().last().addClass('row').attr('id', 'row'+i);
@@ -186,21 +187,21 @@ $(document).ready(function(){
     }*/ 
     buttonGen();
     $('.easy').click(function(){
-        $('body').append('<div></div>').children().last().addClass('reset').html('Reset');
+        $('body').empty();
+        $('body').append('<div onclick="reset"></div>').children().last().addClass('reset').html('Reset');
         generateMap(3, 4, 1);
     });
     $('.normal').click(function(){
-        $('body').append('<div></div>').children().last().addClass('reset').html('Reset');
+        $('body').empty();
+        $('body').append('<div onclick="reset"></div>').children().last().addClass('reset').html('Reset');
         generateMap(6, 3, 2);
     });
     $('.hard').click(function(){
-        $('body').append('<div></div>').children().last().addClass('reset').html('Reset');
+        $('body').empty();
+        $('body').append('<div onclick="reset"></div>').children().last().addClass('reset').html('Reset');
         generateMap(9, 2, 3);
     });
-    $('.reset').click(function(){
-        $('body').children('div').remove();
-        buttonGen();
-    });
+    
 });
 var x;
 var y;
@@ -219,8 +220,14 @@ function statusCheck(){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
     }else */if($('.player').attr('status')=="obstacle"){
         setTimeout(function(){
+            if(x<previousX){
+                x=x+1
+            }else if(x>previousX){
+                x=x-1
+            }else{
+
+            }
             $('.player').removeClass('player').addClass('obstacle');
-            x=x-1;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
@@ -251,6 +258,7 @@ function keyIn(e){
 
         }else{
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x-1;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
@@ -264,6 +272,7 @@ function keyIn(e){
 
         }else{
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x+1;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
@@ -346,9 +355,9 @@ function keyIn(e){
     }
     console.log(y);
 }
-function generateMap(numOfRows, healthNum, coinNum){
-    numOfRows=numOfRows+1
-    for(var i=1;i<numOfRows;i++){
+function generateMap(difficulty, healthNum, coinNum){
+    difficulty=difficulty+1
+    for(var i=1;i<difficulty;i++){
         $('body').append('<div></div>').children().last().addClass('rowBorder').attr('id', 'row'+i);
         maxRowNum=i;
         console.log(maxRowNum);
@@ -361,7 +370,7 @@ function generateMap(numOfRows, healthNum, coinNum){
     for(var i=0;i<coinNum;i++){
         $('.coins').append('<div></div>').children().last().addClass('tBF').attr('coinsFound', i);
     }
-    for(var j=1;j<numOfRows;j++){
+    for(var j=1;j<difficulty;j++){
         for(var i=0;i<30;i++){
             coinNumber=(j+1)/2
             coinNumRow=j
@@ -461,7 +470,7 @@ function generateMap(numOfRows, healthNum, coinNum){
                 }
             }
         }
-        for(var i=0;i<numOfRows-1;i++){
+        for(var i=0;i<difficulty-1;i++){
             if(i<=coinNum){
             
             }else{
@@ -472,7 +481,18 @@ function generateMap(numOfRows, healthNum, coinNum){
     
 }
 function buttonGen(){
-    $('body').append('<div></div>').children().last().addClass('easy').html('Easy');
-    $('body').append('<div></div>').children().last().addClass('normal').html('Normal');
-    $('body').append('<div></div>').children().last().addClass('hard').html('Hard');
+    $('body').append('<div></div>').children().last().addClass('easy');
+    $('.easy').html('Easy')
+    $('body').append('<div></div>').children().last().addClass('normal');
+    $('.normal').html('Normal')
+    $('body').append('<div></div>').children().last().addClass('hard');
+    $('.hard').html('Hard')
 }
+function reset(){
+    $('body').empty();
+    buttonGen();
+}
+/*$('.reset').click(function(){
+    $('body').empty();
+    buttonGen();
+});*/
