@@ -1,0 +1,135 @@
+@charset "utf-8";
+.obstacle{
+    background-color: hotpink;
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+    float: left;
+}
+.player{
+    background-color: rgb(78, 78, 255);
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+    float: left;
+}
+.empty{
+    height: 98px;
+    width: 98px;
+    margin: 0px;
+    float: left;
+    border: thin white solid;
+}
+.gridStyle{
+    height: 98px;
+    width: 98px;
+    margin: 0px;
+    float: left;
+    border: thin transparent solid;
+}
+.top{
+    border-top: thin black solid;
+    margin: 0px;
+    float: left;
+}
+.left{
+    border-left: thin black solid;
+    margin: 0px;
+    float: left;
+}
+.right{
+    border-right: thin black solid;
+    margin: 0px;
+    float: left;
+}
+.bottom{
+    border-bottom: thin black solid;
+    margin: 0px;
+    float: left;
+}
+.middle{
+    border: thin transparent solid;
+    margin: 0px;
+    float: left;
+}
+.row{
+    height: 300px;
+    width: 1000px;
+    /*border: thin black solid;
+    /*border-bottom: ;*/
+}
+.rowBorder{
+    height: 300px;
+    width: 1000px;
+    border: thin black solid;
+    /*border-bottom: ;*/
+}
+.hole{
+    height: 96px;
+    float: left;
+    border-bottom: 3px brown dotted;
+}
+.upperHole{
+    height: 96px;
+    float: left;
+    border-top: 3px brown dotted;
+}
+.character{
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+    margin: 0px;
+}
+.lives{
+    height: 20px;
+    width: auto;
+    border: thin black solid;
+    float: left;
+}
+.alive{
+    height: 20px;
+    width: 20px;
+    background-color: red;
+    float: left;
+    border: thin black solid;
+}
+.dead{
+    height: 20px;
+    width: 20px;
+    background-color: grey;
+    float: left;
+    border: thin black solid;
+}
+.heart{
+    height: 100px;
+    width: 100px;
+    float: left;
+    background-color: red;
+}
+.coin{
+    height: 100px;
+    width: 100px;
+    float: left;
+    background-color: goldenrod;
+}
+.coins{
+    height: auto;
+    width: auto;
+    border: thin black solid;
+    float: left;
+    margin-left: 10px;
+}
+.tBF{
+    height: 20px;
+    width: 20px;
+    background-color: lightgray;
+    float: left;
+    border: thin black solid;
+}
+.found{
+    height: 20px;
+    width: 20px;
+    background-color: greenyellow;
+    border: thin black solid;
+    float: left;
+}
