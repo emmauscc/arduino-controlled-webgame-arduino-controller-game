@@ -71,7 +71,7 @@ $(document).ready(function(){
             }
         }
     }*/
-    for(var i=1;i<4;i++){
+    for(var i=1;i<5;i++){
         $('body').append('<div></div>').children().last().addClass('rowBorder').attr('id', 'row'+i);
         maxRowNum=i;
         console.log(maxRowNum);
@@ -84,7 +84,7 @@ $(document).ready(function(){
     for(var i=0;i<3;i++){
         $('.coins').append('<div></div>').children().last().addClass('tBF').attr('coinsFound', i);
     }
-    for(var j=1;j<4;j++){
+    for(var j=1;j<5;j++){
         for(var i=0;i<30;i++){
             if(j==1){
                 if(i<2){
@@ -160,7 +160,7 @@ $(document).ready(function(){
                 }else if(i==17){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
                 }else if(i==18){
-                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'jumpUp').addClass('grid').addClass('gridStyle');
                 }else if(i==19){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
                 }else if(i>19 && i<21){
@@ -199,7 +199,7 @@ $(document).ready(function(){
                 }else if(i==10){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
                 }else if (i==11){
-                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'dropDown').addClass('grid').addClass('gridStyle');
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'jumpUp').addClass('grid').addClass('gridStyle');
                 }else if (i==12){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
                 }else if(i>12 && i<15){
@@ -219,7 +219,7 @@ $(document).ready(function(){
                 }else if (i==20){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
                 }else if (i==21){
-                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'dropDown').addClass('grid').addClass('gridStyle').addClass('hole');
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
                 }else if(i==22){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
                 }else if(i>22 && i<24){
@@ -228,8 +228,33 @@ $(document).ready(function(){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
                 }else if (i==25){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'obstacle').addClass('grid').addClass('obstacle');
-                }else if(i>25 && i<29){
+                }else if(i>25 && i<28){
                     $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
+                }else if (i==28){
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'dropDown').addClass('grid').addClass('gridStyle').addClass('hole');
+                }else if (i==29){
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle');
+                }
+
+            }else if(j==4){
+                if(i<10){
+                    if(i % 2==0){
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle').css("background-color", "black");
+                    }else if (i % 2!=0){
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle')
+                    }
+                }else if(i>=10 && i<20){
+                    if(i % 2!=0){
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle').css("background-color", "black");
+                    }else if (i % 2==0){
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle')
+                    }
+                }else{
+                    if(i % 2==0){
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle').css("background-color", "black");
+                    }else if (i % 2!=0){
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle')
+                    }
                 }
             }
         }
