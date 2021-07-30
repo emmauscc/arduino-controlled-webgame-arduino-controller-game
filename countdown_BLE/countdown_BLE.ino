@@ -45,7 +45,7 @@ void loop() {
   }
   if(countdownStatus==1){
     if(over==0){
-      if(seconds!= 0 && minutes!= 0 || seconds==0 && minutes!=0 || seconds!= 0 && minutes==0){
+      if(seconds!= 0 && minutes!= 0 || seconds==0 && minutes!=0 || seconds>1 && minutes==0){
         if(seconds==0 && minutes!=0){
           seconds=59;
           minutes=minutes-1;
@@ -95,7 +95,7 @@ void loop() {
         Serial.print("Game Over");
         over=1;
       }
-      delay (1000); 
+      delay (250); 
     }   
   }
 }
