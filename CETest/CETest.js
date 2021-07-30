@@ -185,23 +185,7 @@ $(document).ready(function(){
             }
         }
     }*/ 
-    buttonGen();
-    $('.easy').click(function(){
-        $('body').empty();
-        $('body').append('<div onclick="reset"></div>').children().last().addClass('reset').html('Reset');
-        generateMap(3, 4, 1);
-    });
-    $('.normal').click(function(){
-        $('body').empty();
-        $('body').append('<div onclick="reset"></div>').children().last().addClass('reset').html('Reset');
-        generateMap(6, 3, 2);
-    });
-    $('.hard').click(function(){
-        $('body').empty();
-        $('body').append('<div onclick="reset"></div>').children().last().addClass('reset').html('Reset');
-        generateMap(9, 2, 3);
-    });
-    
+    menuGen();
 });
 var x;
 var y;
@@ -480,19 +464,50 @@ function generateMap(difficulty, healthNum, coinNum){
     }
     
 }
-function buttonGen(){
-    $('body').append('<div></div>').children().last().addClass('easy');
-    $('.easy').html('Easy')
-    $('body').append('<div></div>').children().last().addClass('normal');
-    $('.normal').html('Normal')
-    $('body').append('<div></div>').children().last().addClass('hard');
-    $('.hard').html('Hard')
+function menuGen(){
+    $('body').append('<div onclick="easy()"></div>').children().last().addClass('easy');
+    $('.easy').html('Easy');
+    $('body').append('<div onclick="normal()"></div>').children().last().addClass('normal');
+    $('.normal').html('Normal');
+    $('body').append('<div onclick="hard()"></div>').children().last().addClass('hard');
+    $('.hard').html('Hard');
 }
 function reset(){
     $('body').empty();
-    buttonGen();
+    menuGen();
 }
+function easy(){
+    $('body').empty();
+    $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    generateMap(3, 4, 1);
+}
+function normal(){
+    $('body').empty();
+    $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    generateMap(6, 3, 2);
+}
+function hard(){
+    $('body').empty();
+    $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    generateMap(9, 2, 3);
+}
+/*$('.easy').click(function(){
+    $('body').empty();
+    $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    generateMap(3, 4, 1);
+});
+$('.normal').click(function(){
+    $('body').empty();
+    $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    generateMap(6, 3, 2);
+});
+$('.hard').click(function(){
+    $('body').empty();
+    $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    generateMap(9, 2, 3);
+});
+
 /*$('.reset').click(function(){
     $('body').empty();
-    buttonGen();
+    menuGen();
 });*/
