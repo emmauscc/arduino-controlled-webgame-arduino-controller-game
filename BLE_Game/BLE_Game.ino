@@ -25,9 +25,9 @@ byte Heart[8] = {
 int seconds;
 int minutes;
 int over;
-int count;
 int lives;
-int joy;
+int joystick;
+unsigned long startMillis;
 
 void setup() {
     Serial.begin(9600);
@@ -65,15 +65,12 @@ void loop() {
             seconds=1;
             minutes=3;
             over=0;
-            count=1;
-            joy = 1;
-            
-            Serial.print("joy: ");
-            Serial.print(joy);
-            Serial.println();
+            joystick = 1;
 
-            Serial.print("count: ");
-            Serial.print(count);
+            startMillis = millis();
+            
+            Serial.print("joystick: ");
+            Serial.print(joystick);
             Serial.println();
 
             Serial.print("over: ");
@@ -91,15 +88,12 @@ void loop() {
             seconds=1;
             minutes=2;
             over=0;
-            count=1;
-            joy = 1;
+            joystick = 1;
 
-            Serial.print("joy: ");
-            Serial.print(joy);
-            Serial.println();
+            startMillis = millis();
 
-            Serial.print("count: ");
-            Serial.print(count);
+            Serial.print("joystick: ");
+            Serial.print(joystick);
             Serial.println();
 
             Serial.print("over: ");
@@ -117,15 +111,12 @@ void loop() {
             seconds=1;
             minutes=1;
             over=0;
-            count = 1;
-            joy = 1;
+            joystick = 1;
 
-            Serial.print("joy: ");
-            Serial.print(joy);
-            Serial.println();
+            startMillis = millis();
 
-            Serial.print("count: ");
-            Serial.print(count);
+            Serial.print("joystick: ");
+            Serial.print(joystick);
             Serial.println();
 
             Serial.print("over: ");
@@ -145,7 +136,7 @@ void loop() {
               bt.print(lives);
               bt.println();
             }
-          }else if(incoming ==110){ //ascii code for "n"
+          }else if(incoming == 110){ //ascii code for "n"
             if(over == 0){
               if (lives!=4){
                 lives=lives+1;
@@ -170,22 +161,10 @@ void loop() {
               lcd.print("Game Over");
       
               over=1;
-              count=0;
-              joy = 0;
+              joystick = 0;
             }
             
-          }/*else if(incoming ==99){ //acsii code for "c"
-              Serial.println("Start Countdown"); //Write to Serial Monitor
-      
-              bt.println("Start Countdown"); //Write to Browser
-      
-              //DO SOMETHING
-              seconds=1;
-              minutes=1;
-              count = 1;
-              over=0;
-              lives=4;
-          }*/ 
+          } 
     
       if(over==0){
           if(lives==0){
@@ -206,8 +185,7 @@ void loop() {
             lcd.print("Game Over");
             
             over=1;
-            count=0;
-            joy=0;
+            joystick=0;
             
           }else if (lives==1){
             digitalWrite(9, HIGH);
@@ -265,118 +243,120 @@ void loop() {
               lcd.write(byte(0));
             }
           }
-          
-      if(joy == 1){
-          int xValue = analogRead(joyX);
-          int yValue = analogRead(joyY);
-              
-          if(xValue == 1023 && yValue>=200 && yValue<=900){
-            bt.print('w');
-            Serial.println('w');
-            delay(100);
-          }else if(xValue>=200 && xValue<=900 && yValue == 0){
-            bt.print('a');
-            Serial.println('a');
-            delay(100);
-          }else if(xValue == 0 && yValue>=200 && yValue<=900){
-            bt.print('s');
-            Serial.println('s');
-            delay(100);
-          }else if(xValue>=200 && xValue<=900 && yValue == 1023){
-            bt.print('d');
-            Serial.println('d');
-            delay(100);
-          }
-       }  
-          
-        if(count==1){
-            if(seconds!= 0 && minutes!= 0 || seconds==0 && minutes!=0 || seconds>1 && minutes==0){ // if 1:01- 1:59 or if 1:00 or if 0:02-0:59
-              if(seconds==0 && minutes!=0){
-                seconds=59;
-                minutes=minutes-1;
-        
-                bt.print("0");
-                bt.print(minutes); 
-                bt.print(":");
-                bt.print(seconds);
-                bt.println();
 
-                lcd.setCursor(1,0);
-                lcd.print("Time: 0");
-                lcd.print(minutes);
-                lcd.print(":");
-                lcd.print(seconds);
-                
-                Serial.print("0");
-                Serial.print(minutes); 
-                Serial.print(":");
-                Serial.print(seconds);
-                Serial.println();
-              }else if(seconds<=10){
-                seconds=seconds-1; 
-      
-                bt.print("0");
-                bt.print(minutes); 
-                bt.print(":0");
-                bt.print(seconds);
-                bt.println();
+          countdownFunction(minutes,seconds);
 
-                lcd.setCursor(1,0);
-                lcd.print("Time: 0");
-                lcd.print(minutes);
-                lcd.print(":0");
-                lcd.print(seconds);
-                
-                Serial.print("0");
-                Serial.print(minutes); 
-                Serial.print(":0");
-                Serial.print(seconds);
-                Serial.println();
-              }else{
-                seconds=seconds-1;
-      
-                bt.print("0");
-                bt.print(minutes); 
-                bt.print(":");
-                bt.print(seconds);
-                bt.println();
-
-                lcd.setCursor(1,0);
-                lcd.print("Time: 0");
-                lcd.print(minutes);
-                lcd.print(":");
-                lcd.print(seconds);
-                
-                Serial.print("0");
-                Serial.print(minutes); 
-                Serial.print(":");
-                Serial.print(seconds);
-                Serial.println();
+         if(joy == 1){
+              int xValue = analogRead(joyX);
+              int yValue = analogRead(joyY);
+                  
+              if(xValue == 1023 && yValue>=200 && yValue<=900){
+                bt.print('w');
+                Serial.println('w');
+                delay(100);
+              }else if(xValue>=200 && xValue<=900 && yValue == 0){
+                bt.print('a');
+                Serial.println('a');
+                delay(100);
+              }else if(xValue == 0 && yValue>=200 && yValue<=900){
+                bt.print('s');
+                Serial.println('s');
+                delay(100);
+              }else if(xValue>=200 && xValue<=900 && yValue == 1023){
+                bt.print('d');
+                Serial.println('d');
+                delay(100);
               }
-            }else{ // 00:00
-              bt.print("Game Over");
-              Serial.print("Game Over");
-              
-              digitalWrite(9, LOW);
-              digitalWrite(10, LOW);
-              digitalWrite(11, LOW);
-              digitalWrite(12, LOW);
-              
-              lcd.clear();
-              lcd.setCursor(1,0);
-              lcd.print("Ran out of Time");
-              lcd.setCursor(3,1);
-              lcd.print("Game Over");
-              
-              over=1;
-              count=0;
-              joy=0;
-            }
-            delay(1000);
+          }  
+          
+          delay(1000);
             
-        }
       }
     
   }
  }
+}
+
+int countdownFunction(minutes, seconds){
+  if(seconds!= 0 && minutes!= 0 || seconds==0 && minutes!=0 || seconds>1 && minutes==0){ // if 1:01- 1:59 or if 1:00 or if 0:02-0:59
+      if(seconds==0 && minutes!=0){ // 1:00
+        seconds=59;
+        minutes=minutes-1;
+
+        bt.print("0");
+        bt.print(minutes); 
+        bt.print(":");
+        bt.print(seconds);
+        bt.println();
+
+        lcd.setCursor(1,0);
+        lcd.print("Time: 0");
+        lcd.print(minutes);
+        lcd.print(":");
+        lcd.print(seconds);
+        
+        Serial.print("0");
+        Serial.print(minutes); 
+        Serial.print(":");
+        Serial.print(seconds);
+        Serial.println();
+      }else if(seconds<=10){ // 1:01 - 1:10
+        seconds=seconds-1; 
+
+        bt.print("0");
+        bt.print(minutes); 
+        bt.print(":0");
+        bt.print(seconds);
+        bt.println();
+
+        lcd.setCursor(1,0);
+        lcd.print("Time: 0");
+        lcd.print(minutes);
+        lcd.print(":0");
+        lcd.print(seconds);
+        
+        Serial.print("0");
+        Serial.print(minutes); 
+        Serial.print(":0");
+        Serial.print(seconds);
+        Serial.println();
+      }else{ // 1:11 - 1:59
+        seconds=seconds-1;
+
+        bt.print("0");
+        bt.print(minutes); 
+        bt.print(":");
+        bt.print(seconds);
+        bt.println();
+
+        lcd.setCursor(1,0);
+        lcd.print("Time: 0");
+        lcd.print(minutes);
+        lcd.print(":");
+        lcd.print(seconds);
+        
+        Serial.print("0");
+        Serial.print(minutes); 
+        Serial.print(":");
+        Serial.print(seconds);
+        Serial.println();
+      }
+    }else{ // 00:00
+      bt.print("Game Over");
+      Serial.print("Game Over");
+      
+      digitalWrite(9, LOW);
+      digitalWrite(10, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(12, LOW);
+      
+      lcd.clear();
+      lcd.setCursor(1,0);
+      lcd.print("Ran out of Time");
+      lcd.setCursor(3,1);
+      lcd.print("Game Over");
+      
+      over=1;
+      joystick=0;
+    }
 }
