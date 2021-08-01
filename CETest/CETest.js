@@ -251,6 +251,7 @@ function statusCheck(){
             }, 3000);
         }, 3000);
         numOfCoinsFound=0;
+        lifeNum=0;
     }else{
 
     }
