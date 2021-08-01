@@ -217,7 +217,6 @@ function statusCheck(){
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
-
             sendToBLE('h');
             if(lifeNum>4){
                 $('body').empty();
@@ -239,9 +238,7 @@ function statusCheck(){
         }
         $('.dead[life='+lifeNum+']').removeClass().addClass('alive');
         $('.player').attr('status', 'empty');
-
         sendToBLE('n');
-
     }else if($('.player').attr('status')=="coin"){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass('coin').addClass('player');
         $('.player').attr('status', 'empty');
