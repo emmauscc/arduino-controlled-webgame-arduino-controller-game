@@ -63,24 +63,7 @@ void loop() {
     
             lives=4;
             seconds=1;
-            minutes=3;
-            over=0;
-            joystick = 1;
-
-            startMillis = millis();
-
-            updateLife();
-            
-          }else if(incoming ==50){ //acsii code for "2"
-            Serial.print("Difficulty: normal"); //Write to Serial Monitor
-            Serial.println();
-    
-            bt.print("Difficulty: normal"); //Write to Browser
-            bt.println();
-    
-            lives=4;
-            seconds=1;
-            minutes=2;
+            minutes=1;
             over=0;
             joystick = 1;
 
@@ -96,8 +79,8 @@ void loop() {
             bt.println();
     
             lives = 4;
-            seconds=1;
-            minutes=1;
+            seconds=31;
+            minutes=0;
             over=0;
             joystick = 1;
 
@@ -154,6 +137,21 @@ void loop() {
               lcd.clear();
               lcd.setCursor(3,0);
               lcd.print("Game Over");
+            }
+          }else if(incoming ==118){ // ascii code for "v"
+            if(over == 0){
+              Serial.println("Winner");
+
+              bt.println("Winner");
+
+              lcd.setCursor(2,0);
+              lcd.print("Congratulations!");
+              lcd.setCursor(5,1);
+              lcd.print("You won");
+
+              over=1;
+              joystick = 0;
+              lives = 0;
             }
           }
     
