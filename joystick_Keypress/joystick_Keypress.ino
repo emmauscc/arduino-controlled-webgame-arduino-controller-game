@@ -10,7 +10,7 @@ void loop() {
   int xValue = analogRead(joyX);
   int yValue = analogRead(joyY);
 
-  if(xValue == 1023 && yValue>=200 && yValue<=900){
+  if(xValue > 1010 && yValue>=200 && yValue<=900){
     Serial.println('w');
     delay(10);
   }else if(xValue>=200 && xValue<=900 && yValue == 0){
@@ -19,7 +19,7 @@ void loop() {
   }else if(xValue == 0 && yValue>=200 && yValue<=900){
     Serial.println('s');
     delay(10);
-  }else if(xValue>=200 && xValue<=900 && yValue == 1023){
+  }else if(xValue>=200 && xValue<=900 && yValue > 1010){
     Serial.println('d');
     delay(10);
   }else{

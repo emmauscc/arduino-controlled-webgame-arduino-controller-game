@@ -123,8 +123,6 @@ function detectDifficulty(){
   }else if($('#difficulty').val()=="hard"){
     sendToBLE('3');
   }
-
-  sendToBLE('c');
 }
 
 
