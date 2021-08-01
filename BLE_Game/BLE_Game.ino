@@ -62,7 +62,7 @@ void loop() {
             Serial.println();
     
             lives=4;
-            seconds=1;
+            seconds=0;
             minutes=1;
             over=0;
             joystick = 1;
@@ -79,7 +79,7 @@ void loop() {
             bt.println();
     
             lives = 4;
-            seconds=31;
+            seconds=30;
             minutes=0;
             over=0;
             joystick = 1;
@@ -140,6 +140,7 @@ void loop() {
             }
           }else if(incoming ==118){ // ascii code for "v"
             if(over == 0){
+              delay(3000);
               Serial.println("Winner");
 
               bt.println("Winner");
@@ -198,11 +199,11 @@ void countdownFunction(){
         seconds=59;
         minutes=minutes-1;
 
-        bt.print("0");
+        /*bt.print("0");
         bt.print(minutes); 
         bt.print(":");
         bt.print(seconds);
-        bt.println();
+        bt.println();*/
 
         lcd.clear();
         lcd.setCursor(1,0);
@@ -226,11 +227,11 @@ void countdownFunction(){
       }else if(seconds<=10){ // 1:01 - 1:10
         seconds=seconds-1; 
 
-        bt.print("0");
+        /*bt.print("0");
         bt.print(minutes); 
         bt.print(":0");
         bt.print(seconds);
-        bt.println();
+        bt.println();*/
 
         lcd.clear();
         lcd.setCursor(1,0);
@@ -254,11 +255,11 @@ void countdownFunction(){
       }else{ // 1:11 - 1:59
         seconds=seconds-1;
 
-        bt.print("0");
+        /*bt.print("0");
         bt.print(minutes); 
         bt.print(":");
         bt.print(seconds);
-        bt.println();
+        bt.println();*/
 
         lcd.clear();
         lcd.setCursor(1,0);
@@ -281,7 +282,9 @@ void countdownFunction(){
         Serial.println();
       }
     }else{ // 00:00
-      bt.print("Game Over");
+      /*bt.print("Game Over");
+      bt.println();*/
+      bt.print("o");
       Serial.print("Game Over");
       
       digitalWrite(9, LOW);
