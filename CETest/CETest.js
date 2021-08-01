@@ -303,9 +303,9 @@ function keyIn(e){
                         $('.player').removeClass().addClass('gridStyle').addClass('grid');
                         previousX=x
                         x=x+10;                  
-                        $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-                    }, 1000);
+                        $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('grid').addClass('player');
                         statusCheck();
+                    }, 1000);
                 }
             }else{
                 y=y-1
@@ -314,20 +314,28 @@ function keyIn(e){
                 pageScrollUp();
             }
         }else if($('.player').attr('status')=="dropDown"){
-            $('.player').removeClass('player').addClass('gridStyle');
-            previousX=x
-            x=x-10;               
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            if($('.player').attr('status')=="obstacle"){
+            if(x>=20 && x<=29){
+                $('.player').removeClass('player').addClass('gridStyle');
+                previousX=x
+                x=x-10;
+                $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
                 statusCheck();
             }else{
-                setTimeout(function(){
-                    $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                    previousX=x
-                    x=x+10;                  
-                    $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-                }, 1000);
+                $('.player').removeClass('player').addClass('gridStyle');
+                previousX=x
+                x=x-10;               
+                $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
+                if($('.player').attr('status')=="obstacle"){
                     statusCheck();
+                }else{
+                    setTimeout(function(){
+                        $('.player').removeClass().addClass('gridStyle').addClass('grid');
+                        previousX=x
+                        x=x+10;                  
+                        $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('grid').addClass('player');
+                        statusCheck();
+                    }, 1000);
+                }
             }
         }else if(x>=0 && x<=9){
 
@@ -349,9 +357,9 @@ function keyIn(e){
                     $('.player').removeClass().addClass('gridStyle').addClass('grid');
                     previousX=x
                     x=x+10;                  
-                    $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
+                    $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('grid').addClass('player');
+                    statusCheck();
                 }, 1000);
-                statusCheck();
             }
         }
     }else if(e=="s" || e.key=="s"){
