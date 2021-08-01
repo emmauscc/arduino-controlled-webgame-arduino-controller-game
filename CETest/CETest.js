@@ -217,8 +217,8 @@ function statusCheck(){
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
-            //sendToBLE('h');
-            if(lifeNum>4){
+            sendToBLE('h');
+            if(lifeNum==4){
                 $('body').empty();
                 $('body').append('<div></div>').children().last().addClass('gameOver').html('GAME OVER');
                 lifeNum=0
@@ -245,6 +245,7 @@ function statusCheck(){
         $('.tBF[coinsFound='+numOfCoinsFound+']').removeClass().addClass('found');
         numOfCoinsFound=numOfCoinsFound+1;
     }else if($('.player').attr('status')=='finish'){
+        sendToBLE("v");
         setTimeout(function(){
             $('body').empty();
             $('body').append('<div></div>').children().last().addClass('winner').html('WINNER');
@@ -527,6 +528,7 @@ function generateMap(difficulty, healthNum, coinNum){
     
 }
 function menuGen(){
+    $('body').append('<div onclick="connectBLE()"></div>').children().last().addClass('connect').html('Connect');
     $('body').append('<div onclick="easy()"></div>').children().last().addClass('easy');
     $('.easy').html('Easy');
     //$('body').append('<div onclick="normal()"></div>').children().last().addClass('normal');
@@ -546,7 +548,7 @@ function restart(){
 function easy(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
-    //sendToBLE('1');
+    sendToBLE('1');
     easyMapGen();
     //generateMap(6, 3, 2);
 }

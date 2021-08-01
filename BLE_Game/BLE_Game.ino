@@ -143,11 +143,12 @@ void loop() {
               Serial.println("Winner");
 
               bt.println("Winner");
-
-              lcd.setCursor(2,0);
+             
+              lcd.clear();
+              lcd.setCursor(0,0);
               lcd.print("Congratulations!");
-              lcd.setCursor(5,1);
-              lcd.print("You won");
+              lcd.setCursor(4,1);
+              lcd.print("You Won");
 
               over=1;
               joystick = 0;
