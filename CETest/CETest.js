@@ -580,7 +580,9 @@ function messageReceived(received){
     
     //Do Something with incoming messages//
     console.log(received);
-    keyIn(received);
+    if(received=="w" || received=="a" || received=="s" || received=="d"){
+        keyIn(received);
+    }
 }
 
 //call "sendToBLE(inputToSend)" to send message to Arduino via BLE//
