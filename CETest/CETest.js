@@ -244,6 +244,15 @@ function statusCheck(){
         $('.player').attr('status', 'empty');
         $('.tBF[coinsFound='+numOfCoinsFound+']').removeClass().addClass('found');
         numOfCoinsFound=numOfCoinsFound+1;
+    }else if($('.player').attr('status')=='finish'){
+        setTimeout(function(){
+            $('body').empty();
+            $('body').append('<div></div>').children().last().addClass('winner').html('WINNER');
+            setTimeout(function(){
+                $('body').empty();
+                menuGen();
+            }, 3000);
+        }, 3000)
     }else{
 
     }
