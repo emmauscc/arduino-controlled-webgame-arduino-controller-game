@@ -204,12 +204,14 @@ function statusCheck(){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('player');
     }else */if($('.player').attr('status')=="obstacle"){
         setTimeout(function(){
-            if(x<previousX){
+            if(x==(previousX-1)){
                 x=x+1
-            }else if(x>previousX){
+            }else if(x==(previousX+1)){
                 x=x-1
-            }else{
-
+            }else if(x==(previousX-10)){
+                x=x+10
+            }else if(x==(previousX+10)){
+                x=x-10
             }
             $('.player').removeClass('player').addClass('obstacle');
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
@@ -265,14 +267,20 @@ function keyIn(e){
         if($('.player').attr('status')=="jumpUp"){
             if($('.player').attr('rowNum')==1){
                 $('.player').removeClass('player').addClass('gridStyle');
-            x=x-10;               
-            $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            setTimeout(function(){
-                $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                x=x+10;                  
+                previousX=x
+                x=x-10;               
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            }, 1000);
-            statusCheck();
+                if($('.player').attr('status')=="obstacle"){
+                    statusCheck();
+                }else{
+                    setTimeout(function(){
+                        $('.player').removeClass().addClass('gridStyle').addClass('grid');
+                        previousX=x
+                        x=x+10;                  
+                        $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
+                    }, 1000);
+                        statusCheck();
+                }
             }else{
                 y=y-1
                 $('.player').removeClass().addClass('gridStyle').addClass('grid');
@@ -281,39 +289,55 @@ function keyIn(e){
             }
         }else if($('.player').attr('status')=="dropDown"){
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x-10;               
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            setTimeout(function(){
-                $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                x=x+10;                  
-                $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            }, 1000);
-            statusCheck();
+            if($('.player').attr('status')=="obstacle"){
+                statusCheck();
+            }else{
+                setTimeout(function(){
+                    $('.player').removeClass().addClass('gridStyle').addClass('grid');
+                    previousX=x
+                    x=x+10;                  
+                    $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
+                }, 1000);
+                    statusCheck();
+            }
         }else if(x>=0 && x<=9){
 
         }else if(x>=20 && x<=29){
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x-10;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }else{
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x-10;               
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            setTimeout(function(){
-                $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                x=x+10;                  
-                $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
+            if($('.player').attr('status')=="obstacle"){
                 statusCheck();
-            }, 1000);
+            }else{
+                setTimeout(function(){
+                    $('.player').removeClass().addClass('gridStyle').addClass('grid');
+                    previousX=x
+                    x=x+10;                  
+                    $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
+                }, 1000);
+                statusCheck();
+            }
         }
     }else if(e.key=="s"){
         if($('.player').attr('status')=="dropDown"){
             if($('.player').attr('rowNum')==maxRowNum){
                 $('.player').removeClass('player').addClass('gridStyle');
+                previousX=x
                 x=x+10;
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
                 statusCheck();
+            }else if($('.player').attr('rowNum')==(maxRowNum-1)&& numOfCoinsFound<3){
+
             }else{
                 y=y+1
                 $('.player').removeClass('player').addClass('gridStyle');
@@ -322,16 +346,19 @@ function keyIn(e){
             }
         }else if($('.player').attr('status')=="jumpUp"){
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x+10;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }else if(x<20){
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x+10;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }else if(x>=20 && x<=29){
             $('.player').removeClass('player').addClass('gridStyle');
+            previousX=x
             x=x-10;
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
@@ -467,8 +494,8 @@ function generateMap(difficulty, healthNum, coinNum){
 function menuGen(){
     $('body').append('<div onclick="easy()"></div>').children().last().addClass('easy');
     $('.easy').html('Easy');
-    $('body').append('<div onclick="normal()"></div>').children().last().addClass('normal');
-    $('.normal').html('Normal');
+    //$('body').append('<div onclick="normal()"></div>').children().last().addClass('normal');
+    //$('.normal').html('Normal');
     $('body').append('<div onclick="hard()"></div>').children().last().addClass('hard');
     $('.hard').html('Hard');
 }
@@ -479,17 +506,17 @@ function reset(){
 function easy(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
-    generateMap(3, 4, 1);
+    easyMapGen();
 }
-function normal(){
+/*function normal(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
     generateMap(6, 3, 2);
-}
+}*/
 function hard(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
-    generateMap(9, 2, 3);
+    hardMapGen();
 }
 /*$('.easy').click(function(){
     $('body').empty();
