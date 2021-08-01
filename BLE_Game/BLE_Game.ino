@@ -24,15 +24,15 @@ byte Heart[8] = {
 
 int seconds;
 int minutes;
-int over;
+int over = 1;
 int lives;
-int joystick;
+int joystick = 0;
 unsigned long startMillis;
 
 void setup() {
     Serial.begin(9600);
     bt.begin(9600);
-    Serial.println("Ready to Receive and Send");
+    Serial.println("Ready");
   
     pinMode(9, OUTPUT);
     pinMode(10, OUTPUT);
@@ -45,10 +45,10 @@ void setup() {
 }
 
 void loop() {
-  //READING FROM WEB
-  if (bt.available()) {
+  
+  //if (bt.available()) {
 
-    while (bt.available()) {
+    //while (bt.available()) {
 
       int incoming = bt.read();
       
@@ -68,14 +68,8 @@ void loop() {
             joystick = 1;
 
             startMillis = millis();
-            
-            Serial.print("joystick: ");
-            Serial.print(joystick);
-            Serial.println();
 
-            Serial.print("over: ");
-            Serial.print(over);
-            Serial.println();
+            updateLife();
             
           }else if(incoming ==50){ //acsii code for "2"
             Serial.print("Difficulty: normal"); //Write to Serial Monitor
@@ -92,13 +86,7 @@ void loop() {
 
             startMillis = millis();
 
-            Serial.print("joystick: ");
-            Serial.print(joystick);
-            Serial.println();
-
-            Serial.print("over: ");
-            Serial.print(over);
-            Serial.println();
+            updateLife();
             
           }else if(incoming ==51){ //acsii code for "3"
             Serial.print("Difficulty: hard"); //Write to Serial Monitor
@@ -115,19 +103,15 @@ void loop() {
 
             startMillis = millis();
 
-            Serial.print("joystick: ");
-            Serial.print(joystick);
-            Serial.println();
-
-            Serial.print("over: ");
-            Serial.print(over);
-            Serial.println();
+            updateLife();
             
           }else if(incoming ==104){ //ascii code for "h"
             if(over == 0){
               if (lives!= 0){
                 lives=lives-1;
               }
+
+              updateLife();
               Serial.print("lives: ");
               Serial.print(lives);
               Serial.println();
@@ -135,13 +119,16 @@ void loop() {
               bt.print("lives: "); 
               bt.print(lives);
               bt.println();
+
+              checkSecondPass();
             }
           }else if(incoming == 110){ //ascii code for "n"
             if(over == 0){
               if (lives!=4){
                 lives=lives+1;
               }
-              
+
+              updateLife();
               Serial.print("lives: ");
               Serial.print(lives);
               Serial.println();
@@ -149,135 +136,64 @@ void loop() {
               bt.print("lives: ");
               bt.print(lives);
               bt.println();
+
+              checkSecondPass();
             }
           }else if(incoming ==102){ // ascii code for "f"
             if(over == 0){
               Serial.println("Game Over");
       
               bt.println("Game Over"); //Write to Browser
+      
+              over=1;
+              joystick = 0;
+              lives=0;
+
+              updateLife();
 
               lcd.clear();
               lcd.setCursor(3,0);
               lcd.print("Game Over");
-      
-              over=1;
-              joystick = 0;
-            }
-            
-          } 
-    
-      if(over==0){
-          if(lives==0){
-            digitalWrite(9, LOW);
-            digitalWrite(10, LOW);
-            digitalWrite(11, LOW);
-            digitalWrite(12, LOW);
-            
-            bt.println("");
-            bt.print("Game Over");
-            
-            Serial.println("Game Over"); 
-
-            lcd.clear();
-            lcd.setCursor(0,0);
-            lcd.print("Ran out of Lives");
-            lcd.setCursor(3,1);
-            lcd.print("Game Over");
-            
-            over=1;
-            joystick=0;
-            
-          }else if (lives==1){
-            digitalWrite(9, HIGH);
-            digitalWrite(10, LOW);
-            digitalWrite(11, LOW);
-            digitalWrite(12, LOW);
-
-            lcd.clear();
-            lcd.setCursor(1,1);
-            lcd.print("Lives: ");
-             
-            for(int i=0;i<1;i++){
-              lcd.write(byte(0));
-            }
-            
-          }else if (lives==2){
-            digitalWrite(9, HIGH);
-            digitalWrite(10, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(12, LOW);
-
-            lcd.clear();
-            lcd.setCursor(1,1);
-            lcd.print("Lives: "); 
-            
-            for(int i=0;i<2;i++){
-              lcd.write(byte(0));
-            }
-            
-          }else if (lives==3){
-            digitalWrite(9, HIGH);
-            digitalWrite(10, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(12, LOW);
-            
-            lcd.clear();
-            lcd.setCursor(1,1);
-            lcd.print("Lives: "); 
-            
-            for(int i=0;i<3;i++){
-              lcd.write(byte(0));
-            }
-            
-          }else if (lives==4){
-            digitalWrite(9, HIGH);
-            digitalWrite(10, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(12, HIGH);
-
-            lcd.clear();
-            lcd.setCursor(1,1);
-            lcd.print("Lives: "); 
-            
-            for(int i=0;i<4;i++){
-              lcd.write(byte(0));
             }
           }
-
-          countdownFunction(minutes,seconds);
-
-         if(joy == 1){
+    
+      if(over==0){
+        checkSecondPass();
+         if(joystick == 1){
               int xValue = analogRead(joyX);
               int yValue = analogRead(joyY);
+              checkSecondPass();
                   
-              if(xValue == 1023 && yValue>=200 && yValue<=900){
+              if(xValue > 1010 && yValue>=200 && yValue<=900){
                 bt.print('w');
                 Serial.println('w');
-                delay(100);
+                checkSecondPass();
+                delay(150);
               }else if(xValue>=200 && xValue<=900 && yValue == 0){
                 bt.print('a');
                 Serial.println('a');
-                delay(100);
+                checkSecondPass();
+                delay(150);
               }else if(xValue == 0 && yValue>=200 && yValue<=900){
                 bt.print('s');
                 Serial.println('s');
-                delay(100);
-              }else if(xValue>=200 && xValue<=900 && yValue == 1023){
+                checkSecondPass();
+                delay(150);
+              }else if(xValue>=200 && xValue<=900 && yValue > 1010){
                 bt.print('d');
                 Serial.println('d');
-                delay(100);
+                checkSecondPass();
+                delay(150);
               }
           }  
-          
-          delay(1000);
             
       }
     
-  }
- }
+  //}
+ //}
 }
 
-int countdownFunction(minutes, seconds){
+void countdownFunction(){
   if(seconds!= 0 && minutes!= 0 || seconds==0 && minutes!=0 || seconds>1 && minutes==0){ // if 1:01- 1:59 or if 1:00 or if 0:02-0:59
       if(seconds==0 && minutes!=0){ // 1:00
         seconds=59;
@@ -289,11 +205,19 @@ int countdownFunction(minutes, seconds){
         bt.print(seconds);
         bt.println();
 
+        lcd.clear();
         lcd.setCursor(1,0);
         lcd.print("Time: 0");
         lcd.print(minutes);
         lcd.print(":");
         lcd.print(seconds);
+
+        lcd.setCursor(1,1);
+        lcd.print("Lives: "); 
+        
+        for(int i=0;i<lives;i++){
+          lcd.write(byte(0));
+        }
         
         Serial.print("0");
         Serial.print(minutes); 
@@ -309,11 +233,19 @@ int countdownFunction(minutes, seconds){
         bt.print(seconds);
         bt.println();
 
+        lcd.clear();
         lcd.setCursor(1,0);
         lcd.print("Time: 0");
         lcd.print(minutes);
         lcd.print(":0");
         lcd.print(seconds);
+
+        lcd.setCursor(1,1);
+        lcd.print("Lives: "); 
+        
+        for(int i=0;i<lives;i++){
+          lcd.write(byte(0));
+        }
         
         Serial.print("0");
         Serial.print(minutes); 
@@ -329,11 +261,19 @@ int countdownFunction(minutes, seconds){
         bt.print(seconds);
         bt.println();
 
+        lcd.clear();
         lcd.setCursor(1,0);
         lcd.print("Time: 0");
         lcd.print(minutes);
         lcd.print(":");
         lcd.print(seconds);
+
+        lcd.setCursor(1,1);
+        lcd.print("Lives: "); 
+        
+        for(int i=0;i<lives;i++){
+          lcd.write(byte(0));
+        }
         
         Serial.print("0");
         Serial.print(minutes); 
@@ -359,4 +299,104 @@ int countdownFunction(minutes, seconds){
       over=1;
       joystick=0;
     }
+}
+
+void updateLife(){
+  if(lives==0){
+        digitalWrite(9, LOW);
+        digitalWrite(10, LOW);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+        
+        bt.println("");
+        bt.print("Game Over");
+        
+        Serial.println("Game Over"); 
+
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("Ran out of Lives");
+        lcd.setCursor(3,1);
+        lcd.print("Game Over");
+        
+        over=1;
+        joystick=0;
+
+        checkSecondPass();
+        
+      }else if (lives==1){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, LOW);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+
+        lcd.clear();
+        lcd.setCursor(1,1);
+        lcd.print("Lives: ");
+         
+        for(int i=0;i<1;i++){
+          lcd.write(byte(0));
+        }
+        checkSecondPass();
+        
+      }else if (lives==2){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, HIGH);
+        digitalWrite(11, LOW);
+        digitalWrite(12, LOW);
+
+        lcd.clear();
+        lcd.setCursor(1,1);
+        lcd.print("Lives: "); 
+        
+        for(int i=0;i<2;i++){
+          lcd.write(byte(0));
+        }
+        checkSecondPass();
+        
+      }else if (lives==3){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, HIGH);
+        digitalWrite(11, HIGH);
+        digitalWrite(12, LOW);
+        
+        lcd.clear();
+        lcd.setCursor(1,1);
+        lcd.print("Lives: "); 
+        
+        for(int i=0;i<3;i++){
+          lcd.write(byte(0));
+        }
+        checkSecondPass();
+        
+      }else if (lives==4){
+        digitalWrite(9, HIGH);
+        digitalWrite(10, HIGH);
+        digitalWrite(11, HIGH);
+        digitalWrite(12, HIGH);
+
+        lcd.clear();
+        lcd.setCursor(1,1);
+        lcd.print("Lives: "); 
+        
+        for(int i=0;i<4;i++){
+          lcd.write(byte(0));
+        }
+        checkSecondPass();
+      }
+}
+
+void checkSecondPass(){
+  
+  if((millis())-(startMillis) >= 1000){
+    Serial.println();
+    Serial.print(((unsigned int)millis())-((unsigned int)startMillis));
+    Serial.println();
+    startMillis=millis();
+    Serial.print("newStartMillis");
+    Serial.print(startMillis);
+    Serial.println();
+    
+    countdownFunction();
+  }
 }
