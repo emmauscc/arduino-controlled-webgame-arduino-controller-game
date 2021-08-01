@@ -387,6 +387,10 @@ function easyMapGen(){
     for(var i=0;i<3;i++){
         $('.coins').append('<div></div>').children().last().addClass('tBF').attr('coinsFound', i);
     }
+    $('body').append('<div></div>').children().last().addClass('countdown');
+    /*for(var i=0;i<4;i++){ // CREATE UNIQUE CLASSES AND UPDATE FROM ARDUINO
+        $('.countdown').append('<div></div>').children().last().addClass()
+    }*/
     for(var j=1;j<5;j++){
         for(var i=0;i<30;i++){
             if(j==1){
