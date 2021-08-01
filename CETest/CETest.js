@@ -218,7 +218,7 @@ function statusCheck(){
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
             sendToBLE('h');
-            if(lifeNum>4){
+            if(lifeNum==4){
                 $('body').empty();
                 $('body').append('<div></div>').children().last().addClass('gameOver').html('GAME OVER');
                 lifeNum=0
