@@ -218,16 +218,19 @@ function statusCheck(){
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
 
-            sendToBLE('n');
+            sendToBLE('h');
 
         }, 100);
     }else if($('.player').attr('status')=="heart"){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass('heart').addClass('player');
         lifeNum=lifeNum-1
+        if(lifeNum<0){
+            lifeNum=lifeNum+1
+        }
         $('.dead[life='+lifeNum+']').removeClass().addClass('alive');
         $('.player').attr('status', 'empty');
 
-        sendToBLE('h');
+        sendToBLE('n');
 
     }else if($('.player').attr('status')=="coin"){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass('coin').addClass('player');
@@ -512,6 +515,7 @@ function reset(){
 function easy(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    //$('body').append('<div onclick="start()"></div>').children().last().addClass('reset').html('Start');
     easyMapGen();
 }
 /*function normal(){
