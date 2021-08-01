@@ -217,7 +217,7 @@ function statusCheck(){
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
-            sendToBLE('h');
+            //sendToBLE('h');
             if(lifeNum>4){
                 $('body').empty();
                 $('body').append('<div></div>').children().last().addClass('gameOver').html('GAME OVER');
@@ -252,7 +252,8 @@ function statusCheck(){
                 $('body').empty();
                 menuGen();
             }, 3000);
-        }, 3000)
+        }, 3000);
+        numOfCoinsFound=0;
     }else{
 
     }
@@ -368,6 +369,7 @@ function keyIn(e){
                 $('.player').removeClass('player').addClass('gridStyle');
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
                 pageScrollDown();
+                statusCheck();
             }
         }else if($('.player').attr('status')=="jumpUp"){
             $('.player').removeClass('player').addClass('gridStyle');
@@ -536,7 +538,7 @@ function restart(){
 function easy(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
-    sendToBLE('1');
+    //sendToBLE('1');
     easyMapGen();
     //generateMap(6, 3, 2);
 }
