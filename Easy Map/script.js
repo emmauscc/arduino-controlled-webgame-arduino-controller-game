@@ -546,21 +546,21 @@ function easyMapGen(){
             }else if(j==4){
                 if(i<10){
                     if(i % 2==0){
-                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle').css("background-color", "black");
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'finish').addClass('grid').addClass('gridStyle').css("background-color", "black");
                     }else if (i % 2!=0){
-                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle')
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'finish').addClass('grid').addClass('gridStyle')
                     }
                 }else if(i>=10 && i<20){
                     if(i % 2!=0){
-                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle').css("background-color", "black");
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'finish').addClass('grid').addClass('gridStyle').css("background-color", "black");
                     }else if (i % 2==0){
-                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle')
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'finish').addClass('grid').addClass('gridStyle')
                     }
                 }else{
                     if(i % 2==0){
-                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle').css("background-color", "black");
+                        $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'finish').addClass('grid').addClass('gridStyle').css("background-color", "black");
                     }else if (i % 2!=0){
-                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'empty').addClass('grid').addClass('gridStyle')
+                    $('#row'+j).append('<div></div>').children().last().attr('gridNum', i).attr('rowNum', j).attr('status', 'finish').addClass('grid').addClass('gridStyle')
                     }
                 }
             }
