@@ -217,12 +217,18 @@ function statusCheck(){
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('obstacle').addClass('player');
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
+
+            sendToBLE('n');
+
         }, 100);
     }else if($('.player').attr('status')=="heart"){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass('heart').addClass('player');
         lifeNum=lifeNum-1
         $('.dead[life='+lifeNum+']').removeClass().addClass('alive');
         $('.player').attr('status', 'empty');
+
+        sendToBLE('h');
+
     }else if($('.player').attr('status')=="coin"){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass('coin').addClass('player');
         $('.player').attr('status', 'empty');
@@ -235,7 +241,7 @@ function statusCheck(){
 function keyIn(e){
     x=parseInt($('.player').attr('gridNum'));
     y=parseInt($('.player').attr('rowNum'));
-    if(e.key=="a"){
+    if(e=="a" || e.key=="a"){
         if(x==0){
 
         }else if(x==10){
@@ -249,7 +255,7 @@ function keyIn(e){
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }
-    }else if(e.key=="d"){
+    }else if(e=="d" || e.key=="d"){
         if(x==9){
 
         }else if(x==19){
@@ -263,7 +269,7 @@ function keyIn(e){
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
             statusCheck();
         }
-    }else if(e.key=="w"){
+    }else if(e=="w" || e.key=="w"){
         if($('.player').attr('status')=="jumpUp"){
             if($('.player').attr('rowNum')==1){
                 $('.player').removeClass('player').addClass('gridStyle');
@@ -328,7 +334,7 @@ function keyIn(e){
                 statusCheck();
             }
         }
-    }else if(e.key=="s"){
+    }else if(e=="s" || e.key=="s"){
         if($('.player').attr('status')=="dropDown"){
             if($('.player').attr('rowNum')==maxRowNum){
                 $('.player').removeClass('player').addClass('gridStyle');
@@ -538,3 +544,120 @@ $('.hard').click(function(){
     $('body').empty();
     menuGen();
 });*/
+
+var bluetoothDevice;
+var customCharacteristic;
+var myCharacteristic;
+
+function messageReceived(received){
+    
+    //Do Something with incoming messages//
+    console.log(received);
+    keyIn(received);
+}
+
+//call "sendToBLE(inputToSend)" to send message to Arduino via BLE//
+
+function connectBLE(){
+
+    var currentService = "0000ffe0-0000-1000-8000-00805f9b34fb";
+
+    console.log(currentService);
+    var currentCharacteristic = "0000ffe1-0000-1000-8000-00805f9b34fb"
+
+    /*document.getElementById('serviceAddress').disabled = 'disabled';
+    document.getElementById('characteristicAddress').disabled = 'disabled';*/
+
+    console.log("running");
+
+    options = {};
+    options.acceptAllDevices = true;
+
+    bluetoothDevice = null;
+    console.log('Requesting Bluetooth Device...');
+    navigator.bluetooth.requestDevice({filters: [{services: [currentService]}]})
+    .then(device => {
+      bluetoothDevice = device;
+      console.log('Connecting to GATT Server...');
+      return device.gatt.connect();
+
+    })
+    .then(server => {
+      console.log('Getting Service...');
+      console.log(server.getPrimaryService(currentService));
+      return server.getPrimaryService(currentService);
+    })
+    .then(service => {
+      console.log('Getting Characteristics...');     
+      service.getCharacteristic(currentCharacteristic);
+      myCharacteristic = 
+        service.getCharacteristic(currentCharacteristic);
+      return service.getCharacteristic(currentCharacteristic);
+
+    })
+    .then(characteristic => {
+      customCharacteristic = characteristic;
+
+      return customCharacteristic.startNotifications().then(_ => {
+      console.log('> Notifications started');
+      customCharacteristic.addEventListener('characteristicvaluechanged',handleCustomChanged);
+      });
+  })
+
+    .catch(error => {
+      console.log(error);
+    });
+
+}
+
+function disconnectBLE(){
+
+  console.log(bluetoothDevice.gatt.connected);
+
+  if (bluetoothDevice.gatt.connected) {
+    bluetoothDevice.gatt.disconnect();
+
+    console.log("Bluetooth disconnected");
+  } else {
+    console.log('> Bluetooth Device is already disconnected');
+  }
+}
+
+function handleCustomChanged(event) {
+    let value = event.target.value;
+
+    let a = [];
+
+    for (let i = 0; i < value.byteLength; i++) {
+      a.push(String.fromCharCode(value.getUint8(i)));
+    }
+    //console.log(a.join(""));
+
+    messageReceived(a.join(""));
+
+  }
+
+function sendToBLE(toSend){
+
+  while(toSend.length < 4){
+
+    toSend= toSend+"X";
+  }
+  const buffer = str2ab(toSend);
+
+  const view = new Int16Array(buffer);
+
+  console.log("sending message: "+ view);
+
+  customCharacteristic.writeValue(view);
+    //forked from https://gist.github.com/skratchdot/e095036fad80597f1c1a //
+
+  function str2ab(str) {
+    var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+    var bufView = new Uint16Array(buf);
+    for (var i = 0, strLen = str.length; i < strLen; i++) {
+      bufView[i] = str.charCodeAt(i);
+    }
+    return buf;
+  }
+}
