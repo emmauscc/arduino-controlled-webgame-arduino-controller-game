@@ -219,13 +219,23 @@ function statusCheck(){
             lifeNum=lifeNum+1;
 
             sendToBLE('h');
-
+            if(lifeNum>4){
+                $('body').empty();
+                $('body').append('<div></div>').children().last().addClass('gameOver').html('GAME OVER');
+                lifeNum=0
+                setTimeout(function(){
+                    $('body').empty();
+                    $('body').append('<div onclick="restart()"></div>').children().last().addClass('reset').html('Restart');
+                }, 3000);
+            }
         }, 100);
     }else if($('.player').attr('status')=="heart"){
         $('#row'+y).children('.grid[gridNum='+x+']').removeClass('heart').addClass('player');
         lifeNum=lifeNum-1
         if(lifeNum<0){
             lifeNum=lifeNum+1
+        }else{
+
         }
         $('.dead[life='+lifeNum+']').removeClass().addClass('alive');
         $('.player').attr('status', 'empty');
@@ -511,12 +521,18 @@ function menuGen(){
 function reset(){
     $('body').empty();
     menuGen();
+    sendToBLE('f');
+}
+function restart(){
+    $('body').empty();
+    menuGen();
 }
 function easy(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
-    //$('body').append('<div onclick="start()"></div>').children().last().addClass('reset').html('Start');
+    sendToBLE('1');
     easyMapGen();
+    //generateMap(6, 3, 2);
 }
 /*function normal(){
     $('body').empty();
@@ -526,6 +542,7 @@ function easy(){
 function hard(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
+    sendToBLE('3');
     hardMapGen();
 }
 /*$('.easy').click(function(){
