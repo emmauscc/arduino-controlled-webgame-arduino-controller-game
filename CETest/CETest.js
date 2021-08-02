@@ -295,17 +295,7 @@ function keyIn(e){
                 previousX=x
                 x=x-10;               
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-                if($('.player').attr('status')=="obstacle"){
-                    statusCheck();
-                }else{
-                    setTimeout(function(){
-                        $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                        previousX=x
-                        x=x+10;                  
-                        $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('grid').addClass('player');
-                        statusCheck();
-                    }, 1000);
-                }
+                statusCheck();
             }else{
                 y=y-1
                 $('.player').removeClass().addClass('gridStyle').addClass('grid');
@@ -324,17 +314,7 @@ function keyIn(e){
                 previousX=x
                 x=x-10;               
                 $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-                if($('.player').attr('status')=="obstacle"){
-                    statusCheck();
-                }else{
-                    setTimeout(function(){
-                        $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                        previousX=x
-                        x=x+10;                  
-                        $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('grid').addClass('player');
-                        statusCheck();
-                    }, 1000);
-                }
+                statusCheck();
             }
         }else if(x>=0 && x<=9){
 
@@ -349,17 +329,7 @@ function keyIn(e){
             previousX=x
             x=x-10;               
             $('#row'+y).children('.grid[gridNum='+x+']').removeClass('gridStyle').addClass('player');
-            if($('.player').attr('status')=="obstacle"){
-                statusCheck();
-            }else{
-                setTimeout(function(){
-                    $('.player').removeClass().addClass('gridStyle').addClass('grid');
-                    previousX=x
-                    x=x+10;                  
-                    $('#row'+y).children('.grid[gridNum='+x+']').removeClass().addClass('grid').addClass('player');
-                    statusCheck();
-                }, 1000);
-            }
+            statusCheck();
         }
     }else if(e=="s" || e.key=="s"){
         if($('.player').attr('status')=="dropDown"){

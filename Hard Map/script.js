@@ -232,7 +232,7 @@ function hardMapGen(){
         console.log(maxRowNum);
     }
     $('body').append('<div></div>').children().last().addClass('lives');
-    for(var i=0;i<3;i++){
+    for(var i=0;i<4;i++){
         $('.lives').append('<div></div>').children().last().addClass('alive').attr('life', i);
     }
     $('body').append('<div></div>').children().last().addClass('coins');
