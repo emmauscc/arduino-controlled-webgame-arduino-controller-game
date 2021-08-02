@@ -248,6 +248,7 @@ function statusCheck(){
             setTimeout(function(){
                 $('body').empty();
                 $('body').append('<div onclick="restart()"></div>').children().last().addClass('reset').html('Replay');
+                $('body').append('<div></div>').children().last().addClass('score').html('Score: '+score);
             }, 3000);
         }, 3000);
         numOfCoinsFound=0;
@@ -594,6 +595,7 @@ $('.hard').click(function(){
 var bluetoothDevice;
 var customCharacteristic;
 var myCharacteristic;
+var score;
 
 function messageReceived(received){
     
@@ -603,6 +605,8 @@ function messageReceived(received){
         keyIn(received);
     }else if(received=="o"){
         gameOver();
+    }else if(parseInt(received)%1 == 0){
+        score=parseInt(received);
     }
 }
 

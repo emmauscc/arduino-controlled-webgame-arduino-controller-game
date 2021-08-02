@@ -27,6 +27,7 @@ int minutes;
 int over = 1;
 int lives;
 int joystick = 0;
+int score;
 unsigned long startMillis;
 
 void setup() {
@@ -55,17 +56,18 @@ void loop() {
       
           if(incoming ==49){ //acsii code for "1"
 
-            bt.print("Difficulty: easy"); //Write to Browser
-            bt.println();
+            /*bt.print("Difficulty: easy"); //Write to Browser
+            bt.println();*/
             
             Serial.print("Difficulty: easy"); //Write to Serial Monitor
             Serial.println();
     
             lives=4;
-            seconds=0;
-            minutes=1;
+            seconds=25;
+            minutes=0;
             over=0;
             joystick = 1;
+            score=0;
 
             startMillis = millis();
 
@@ -75,14 +77,15 @@ void loop() {
             Serial.print("Difficulty: hard"); //Write to Serial Monitor
             Serial.println();
     
-            bt.print("Difficulty: hard"); //Write to Browser
-            bt.println();
+            /*bt.print("Difficulty: hard"); //Write to Browser
+            bt.println();*/
     
             lives = 4;
-            seconds=30;
+            seconds=25;
             minutes=0;
             over=0;
             joystick = 1;
+            score=0;
 
             startMillis = millis();
 
@@ -99,9 +102,9 @@ void loop() {
               Serial.print(lives);
               Serial.println();
 
-              bt.print("lives: "); 
+              /*bt.print("lives: "); 
               bt.print(lives);
-              bt.println();
+              bt.println();*/
 
               checkSecondPass();
             }
@@ -116,9 +119,9 @@ void loop() {
               Serial.print(lives);
               Serial.println();
               
-              bt.print("lives: ");
+              /*bt.print("lives: ");
               bt.print(lives);
-              bt.println();
+              bt.println();*/
 
               checkSecondPass();
             }
@@ -126,7 +129,7 @@ void loop() {
             if(over == 0){
               Serial.println("Game Over");
       
-              bt.println("Game Over"); //Write to Browser
+              //bt.println("Game Over"); //Write to Browser
       
               over=1;
               joystick = 0;
@@ -143,13 +146,17 @@ void loop() {
               delay(3000);
               Serial.println("Winner");
 
-              bt.println("Winner");
+              //bt.println("Winner");
+              score=(seconds*100)+lives*10;
+              bt.print(score);
              
               lcd.clear();
-              lcd.setCursor(0,0);
-              lcd.print("Congratulations!");
-              lcd.setCursor(4,1);
-              lcd.print("You Won");
+              lcd.setCursor(4,0);
+              lcd.print("Winner!");
+              delay(3000);
+              lcd.setCursor(2,1);
+              lcd.print("Score: ");
+              lcd.print(score);
 
               over=1;
               joystick = 0;
@@ -164,26 +171,26 @@ void loop() {
               int yValue = analogRead(joyY);
               checkSecondPass();
                   
-              if(xValue > 1010 && yValue>=200 && yValue<=900){
+              if(xValue > 900 && yValue>=200 && yValue<=900){
                 bt.print('w');
                 Serial.println('w');
                 checkSecondPass();
-                delay(150);
+                delay(250);
               }else if(xValue>=200 && xValue<=900 && yValue == 0){
                 bt.print('a');
                 Serial.println('a');
                 checkSecondPass();
-                delay(150);
-              }else if(xValue == 0 && yValue>=200 && yValue<=900){
+                delay(250);
+              }else if(xValue == 0 && yValue>=100 && yValue<=900){
                 bt.print('s');
                 Serial.println('s');
                 checkSecondPass();
-                delay(150);
-              }else if(xValue>=200 && xValue<=900 && yValue > 1010){
+                delay(250);
+              }else if(xValue>=100 && xValue<=900 && yValue > 900){
                 bt.print('d');
                 Serial.println('d');
                 checkSecondPass();
-                delay(150);
+                delay(250);
               }
           }  
             
@@ -310,8 +317,8 @@ void updateLife(){
         digitalWrite(11, LOW);
         digitalWrite(12, LOW);
         
-        bt.println("");
-        bt.print("Game Over");
+        /*bt.println();
+        bt.print("Game Over");*/
         
         Serial.println("Game Over"); 
 
