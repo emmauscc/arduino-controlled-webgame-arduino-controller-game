@@ -1,5 +1,6 @@
 var maxRowNum;
 var previousX;
+
 $(document).ready(function(){
     /*for(var i=1;i<4;i++){
         $('body').append('<div></div>').children().last().addClass('row').attr('id', 'row'+i);
@@ -191,6 +192,7 @@ var x;
 var y;
 var lifeNum=0;
 var numOfCoinsFound=0;
+
 function pageScrollDown(){
     window.scrollBy(0,300);
 }
@@ -218,14 +220,8 @@ function statusCheck(){
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
             sendToBLE('h');
-            if(lifeNum==4){
-                $('body').empty();
-                $('body').append('<div></div>').children().last().addClass('gameOver').html('GAME OVER');
-                lifeNum=0
-                setTimeout(function(){
-                    $('body').empty();
-                    $('body').append('<div onclick="restart()"></div>').children().last().addClass('reset').html('Restart');
-                }, 3000);
+            if(lifeNum>=4){
+                gameOver();
             }
         }, 100);
     }else if($('.player').attr('status')=="heart"){
@@ -251,7 +247,7 @@ function statusCheck(){
             $('body').append('<div></div>').children().last().addClass('winner').html('WINNER');
             setTimeout(function(){
                 $('body').empty();
-                menuGen();
+                $('body').append('<div onclick="restart()"></div>').children().last().addClass('reset').html('Replay');
             }, 3000);
         }, 3000);
         numOfCoinsFound=0;
@@ -373,6 +369,7 @@ function keyIn(e){
     }
     console.log(y);
 }
+
 function generateMap(difficulty, healthNum, coinNum){
     difficulty=difficulty+1
     for(var i=1;i<difficulty;i++){
@@ -516,6 +513,15 @@ function restart(){
     $('body').empty();
     menuGen();
 }
+function gameOver(){
+    $('body').empty();
+    $('body').append('<div></div>').children().last().addClass('gameOver').html('GAME OVER');
+    lifeNum=0;
+    setTimeout(function(){
+        $('body').empty();
+        $('body').append('<div onclick="restart()"></div>').children().last().addClass('reset').html('Restart');
+    }, 3000);
+}
 function easy(){
     $('body').empty();
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
@@ -565,6 +571,8 @@ function messageReceived(received){
     console.log(received);
     if(received=="w" || received=="a" || received=="s" || received=="d"){
         keyIn(received);
+    }else if(received=="o"){
+        gameOver();
     }
 }
 
