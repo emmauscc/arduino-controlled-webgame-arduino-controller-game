@@ -63,7 +63,7 @@ void loop() {
             Serial.println();
     
             lives=4;
-            seconds=25;
+            seconds=35;
             minutes=0;
             over=0;
             joystick = 1;
@@ -176,12 +176,12 @@ void loop() {
                 Serial.println('w');
                 checkSecondPass();
                 delay(250);
-              }else if(xValue>=200 && xValue<=900 && yValue == 0){
+              }else if(xValue>=200 && xValue<=900 && yValue < 100){
                 bt.print('a');
                 Serial.println('a');
                 checkSecondPass();
                 delay(250);
-              }else if(xValue == 0 && yValue>=100 && yValue<=900){
+              }else if(xValue < 100 && yValue>=100 && yValue<=900){
                 bt.print('s');
                 Serial.println('s');
                 checkSecondPass();
