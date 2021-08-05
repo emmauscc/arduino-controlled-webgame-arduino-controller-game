@@ -29,6 +29,7 @@ int lives;
 int joystick = 0;
 int score;
 unsigned long startMillis;
+int difficulty;
 
 void setup() {
     Serial.begin(9600);
@@ -68,6 +69,7 @@ void loop() {
             over=0;
             joystick = 1;
             score=0;
+            difficulty=1;
 
             startMillis = millis();
 
@@ -80,12 +82,13 @@ void loop() {
             /*bt.print("Difficulty: hard"); //Write to Browser
             bt.println();*/
     
-            lives = 4;
+            lives = 2;
             seconds=25;
             minutes=0;
             over=0;
             joystick = 1;
             score=0;
+            difficulty=2;
 
             startMillis = millis();
 
@@ -110,8 +113,14 @@ void loop() {
             }
           }else if(incoming == 110){ //ascii code for "n"
             if(over == 0){
-              if (lives!=4){
-                lives=lives+1;
+              if(difficulty==1){
+                if (lives!=4){
+                  lives=lives+1;
+                } 
+              }else if(difficulty==2){
+                if(lives!=2){
+                  lives=lives+1;
+                } 
               }
 
               updateLife();
@@ -134,6 +143,7 @@ void loop() {
               over=1;
               joystick = 0;
               lives=0;
+              difficulty=0;
 
               updateLife();
 
@@ -161,6 +171,7 @@ void loop() {
               over=1;
               joystick = 0;
               lives = 0;
+              difficulty=0;
             }
           }
     
@@ -307,11 +318,12 @@ void countdownFunction(){
       
       over=1;
       joystick=0;
+      difficulty=0;
     }
 }
 
 void updateLife(){
-  if(lives==0){
+    if(lives==0){
         digitalWrite(9, LOW);
         digitalWrite(10, LOW);
         digitalWrite(11, LOW);
@@ -330,6 +342,7 @@ void updateLife(){
         
         over=1;
         joystick=0;
+        difficulty=0;
 
         checkSecondPass();
         

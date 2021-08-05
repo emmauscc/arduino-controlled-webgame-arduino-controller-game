@@ -192,6 +192,7 @@ var x;
 var y;
 var lifeNum=0;
 var numOfCoinsFound=0;
+var difficulty;
 
 function pageScrollDown(){
     window.scrollBy(0,300);
@@ -220,8 +221,14 @@ function statusCheck(){
             $('.alive[life='+lifeNum+']').removeClass().addClass('dead');
             lifeNum=lifeNum+1;
             sendToBLE('h');
-            if(lifeNum>=4){
-                gameOver();
+            if (difficulty==1){
+                if(lifeNum>=4){
+                    gameOver();
+                }
+            }else if(difficulty == 2){
+                if(lifeNum>=2){
+                    gameOver();
+                }
             }
         }, 100);
     }else if($('.player').attr('status')=="heart"){
@@ -528,6 +535,7 @@ function easy(){
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
     sendToBLE('1');
     easyMapGen();
+    difficulty=1;
     //generateMap(6, 3, 2);
 }
 /*function normal(){
@@ -540,6 +548,7 @@ function hard(){
     $('body').append('<div onclick="reset()"></div>').children().last().addClass('reset').html('Reset');
     sendToBLE('3');
     hardMapGen();
+    difficulty=2;
 }
 /*$('.easy').click(function(){
     $('body').empty();
