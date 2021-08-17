@@ -229,7 +229,7 @@ function hardMapGen(){
     for(var i=1;i<7;i++){
         $('body').append('<div></div>').children().last().addClass('rowBorder').attr('id', 'row'+i);
         maxRowNum=i;
-        console.log(maxRowNum);
+        //console.log(maxRowNum);
     }
     $('body').append('<div></div>').children().last().addClass('lives');
     for(var i=0;i<4;i++){

@@ -59,8 +59,11 @@ void loop() {
 
             /*bt.print("Difficulty: easy"); //Write to Browser
             bt.println();*/
-            
+
             Serial.print("Difficulty: easy"); //Write to Serial Monitor
+            /*Serial.println();
+            Serial.print("difficulty number: ");
+            Serial.print(incoming);*/
             Serial.println();
     
             lives=4;
@@ -77,6 +80,9 @@ void loop() {
             
           }else if(incoming ==51){ //acsii code for "3"
             Serial.print("Difficulty: hard"); //Write to Serial Monitor
+            /*Serial.println();
+            Serial.print("difficulty number: ");
+            Serial.print(incoming);*/
             Serial.println();
     
             /*bt.print("Difficulty: hard"); //Write to Browser
@@ -103,6 +109,9 @@ void loop() {
               updateLife();
               Serial.print("lives: ");
               Serial.print(lives);
+              /*Serial.println();
+              Serial.print("incoming number: ");
+              Serial.print(incoming);*/
               Serial.println();
 
               /*bt.print("lives: "); 
@@ -126,6 +135,9 @@ void loop() {
               updateLife();
               Serial.print("lives: ");
               Serial.print(lives);
+              /*Serial.println();
+              Serial.print("incoming number: ");
+              Serial.print(incoming);*/
               Serial.println();
               
               /*bt.print("lives: ");
@@ -184,22 +196,22 @@ void loop() {
                   
               if(xValue > 900 && yValue>=200 && yValue<=900){
                 bt.print('w');
-                Serial.println('w');
+                //Serial.println('w');
                 checkSecondPass();
                 delay(250);
               }else if(xValue>=200 && xValue<=900 && yValue < 100){
                 bt.print('a');
-                Serial.println('a');
+                //Serial.println('a');
                 checkSecondPass();
                 delay(250);
               }else if(xValue < 100 && yValue>=100 && yValue<=900){
                 bt.print('s');
-                Serial.println('s');
+                //Serial.println('s');
                 checkSecondPass();
                 delay(250);
               }else if(xValue>=100 && xValue<=900 && yValue > 900){
                 bt.print('d');
-                Serial.println('d');
+                //Serial.println('d');
                 checkSecondPass();
                 delay(250);
               }
@@ -237,11 +249,11 @@ void countdownFunction(){
           lcd.write(byte(0));
         }
         
-        Serial.print("0");
+        /*Serial.print("0");
         Serial.print(minutes); 
         Serial.print(":");
         Serial.print(seconds);
-        Serial.println();
+        Serial.println();*/
       }else if(seconds<=10){ // 1:01 - 1:10
         seconds=seconds-1; 
 
@@ -265,11 +277,11 @@ void countdownFunction(){
           lcd.write(byte(0));
         }
         
-        Serial.print("0");
+        /*Serial.print("0");
         Serial.print(minutes); 
         Serial.print(":0");
         Serial.print(seconds);
-        Serial.println();
+        Serial.println();*/
       }else{ // 1:11 - 1:59
         seconds=seconds-1;
 
@@ -293,11 +305,11 @@ void countdownFunction(){
           lcd.write(byte(0));
         }
         
-        Serial.print("0");
+        /*Serial.print("0");
         Serial.print(minutes); 
         Serial.print(":");
         Serial.print(seconds);
-        Serial.println();
+        Serial.println();*/
       }
     }else{ // 00:00
       /*bt.print("Game Over");
@@ -410,14 +422,21 @@ void updateLife(){
 
 void checkSecondPass(){
   
-  if((millis())-(startMillis) >= 1000){
+  if((millis())-(startMillis) >= 1000){ // if (current time elapsed - starting time elapsed) >= 1000 milliseconds
+    /*Serial.println();
+    Serial.print("millis: ");
+    Serial.print(millis());
     Serial.println();
-    Serial.print(((unsigned int)millis())-((unsigned int)startMillis));
-    Serial.println();
-    startMillis=millis();
-    Serial.print("newStartMillis");
+    Serial.print("startMillis: ");
     Serial.print(startMillis);
     Serial.println();
+    Serial.print("time difference: ");
+    Serial.print(((unsigned int)millis())-((unsigned int)startMillis));
+    Serial.println();*/
+    startMillis=millis();
+    /*Serial.print("newStartMillis: ");
+    Serial.print(startMillis);
+    Serial.println();*/
     
     countdownFunction();
   }
